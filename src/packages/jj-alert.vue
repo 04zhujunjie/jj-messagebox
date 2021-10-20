@@ -31,7 +31,6 @@
 				type:'alert', //有alert和sheet
 				isTouchClose: false, //点击背景图层，是否关闭弹框
 				isShowClose:false,//是否显示右上角的关闭按钮
-				mainStyle:{'width':'300px'},
 				contentWidth:'80%',//内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
 				title:"提示",
 				titleStyle:{},
