@@ -1,7 +1,7 @@
 <template>
-	<div class="shade" @click="isTouchClose?close():''">
+	<div class="shade" :style="{'background-color':backgroundColor}" @click="isTouchClose?close():''">
 		<div class="main" :style="{'width':contentWidth}">
-			<div class="content">
+			<div class="content" :style="{'padding':contentPadding}">
 				<div v-if="isShowClose" class="rightTopClose" @click="close">x</div>
 				<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
 				<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle"><span>{{message}}</span></div>
@@ -29,13 +29,15 @@
 		data() {
 			return {
 				type:'alert', //有alert和sheet
+				backgroundColor:"rgba(0, 0, 0, 0.35)",//遮罩层的背景颜色
 				isTouchClose: false, //点击背景图层，是否关闭弹框
-				isShowClose:false,//是否显示右上角的关闭按钮
+				isShowClose:true,//是否显示右上角的关闭按钮
 				contentWidth:'80%',//内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
-				title:"提示",
+				contentPadding:'20px',
+				title:"",
 				titleStyle:{},
 				// titleStyle:{"justify-content":'left',"display": "flex","color":'#fe2','text-align':'left'},
-				message:"fjeojfoefjeofjeo",
+				message:"",
 				messageStyle:{},
 				btns: [{
 						title: "确认",
@@ -98,22 +100,11 @@
 		display: flex;
 		justify-content: center;
 	}
-	.rightTopClose {
-		width: 40px;
-		height: 40px;
-		font-size: 1.5rem;
-		text-align: center;
-		position: absolute;
-		top: 0px;
-		right: 0px;
-	}
-
     .flexContentCenter{
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		
 	}
 	.flexContentSpaceAround{
 		display: flex;
