@@ -17,6 +17,7 @@
 
 <script>
 	export default {
+		name: 'jj-dialog',//需要设置名字，在index.js文件注册插件的时候用到这个名字，这个名字作为改组件的名字
 		props: {
 			visible: {
 				//是否显示遮罩层
@@ -96,8 +97,7 @@
 </script>
 
 <style scoped>
-	@import "./jj-messagebox.css";
-
+	@import "../jj-messagebox.css";
 	.dialog {
 		display: flex;
 		flex-direction: column;

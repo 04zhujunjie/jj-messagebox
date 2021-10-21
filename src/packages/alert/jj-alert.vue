@@ -1,5 +1,5 @@
 <template>
-	<div class="shade" :style="{'background-color':backgroundColor}" @click="isTouchClose?close():''">
+	<div class="shade"  :style="{'background-color':backgroundColor}" @click="isTouchClose?close():''">
 		<div class="main" :style="{'width':contentWidth}">
 			<div class="content" :style="{'padding':contentPadding}">
 				<div v-if="isShowClose" class="rightTopClose" @click="close">x</div>
@@ -8,15 +8,15 @@
 			</div>
 			<div v-if="type === 'alert'">
 				<div class="btns flexContentSpaceAround">
-					<div class="btn" v-for="(btn,index) in btns" :style="btnStyle(btn)" :key="index"
-						@click="clickFn($event,btn)">{{btn.title}}
+					<div class="btn"  v-for="(btn,index) in btns" :style="btnStyle(btn)" :key="index"
+						@click="clickFn($event,btn)">{{btn.name}}
 					</div>
 				</div>
 			</div>
 			<div v-else>
 				<div class="btns flexContentCenter" v-for="(btn,index) in btns" :key="index">
 					<div class="btn" :style="btnStyle(btn)" 
-						@click="clickFn($event,btn)">{{btn.title}}
+						@click="clickFn($event,btn)">{{btn.name}}
 					</div>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 				type:'alert', //有alert和sheet
 				backgroundColor:"rgba(0, 0, 0, 0.35)",//遮罩层的背景颜色
 				isTouchClose: false, //点击背景图层，是否关闭弹框
-				isShowClose:true,//是否显示右上角的关闭按钮
+				isShowClose:false,//是否显示右上角的关闭按钮
 				contentWidth:'80%',//内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
 				contentPadding:'20px',
 				title:"",
@@ -40,14 +40,14 @@
 				message:"",
 				messageStyle:{},
 				btns: [{
-						title: "确认",
+						name: "确认",
 						style: {
 							"color": '#fff',
 							'background': '#2A8AFF'
 						},
 						isTouchClose: true, //点击按钮，是否自动关闭弹框
 						click: () => {
-							console.log("按钮被点击")
+							// console.log("按钮被点击")
 						},
 					},
 				]
@@ -78,7 +78,7 @@
 			clickFn(e, btn) {
 				//阻止事件冒泡
 				e.stopPropagation()
-				if (btn.isTouchClose || false) {
+				if (btn.isTouchClose != false) {
 					this.close()
 				}
 				if (btn.click !== undefined) {
@@ -88,13 +88,13 @@
 						console.warn("请传入回调函数")
 					}
 				}
-			}
+			},
 		}
 	}
 </script>
 
 <style scoped>
-	@import "./jj-messagebox.css";
+	@import "../jj-messagebox.css";
 
     .flexCenter{
 		display: flex;

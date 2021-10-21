@@ -1,30 +1,22 @@
 <template>
 	<div class="hello">
 		<div @click="showAlert">Alert</div>
-		<div v-if="isShowAlert">
-			<alert @close="close"></alert>
-		</div>
 		<div @click="showDialog">Dialog</div>
-		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'#eee'}" title="提示" message="外层Dialog" @close = "isShowDialog=false">
-			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false' >
-				
+		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'#eee'}" title="提示" message="外层Dialog"
+			@close="isShowDialog=false">
+			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
+
 			</jj-dialog>
 			<div slot="footer" style="height: 40px;">
-				<button @click="innerVisible=true">打开内层Dialog</button>
+				<div @click="innerVisible=true">打开内层Dialog</div>
 			</div>
 		</jj-dialog>
 	</div>
 </template>
 
 <script>
-	import alert from '../packages/jj-alert.vue'
-	import jjDialog from '../packages/jj-dialog.vue'
 	export default {
 		name: 'HelloWorld',
-		components: {
-			alert,
-			jjDialog
-		},
 		props: {
 			msg: String
 		},
@@ -32,15 +24,25 @@
 			return {
 				isShowAlert: false,
 				isShowDialog: false,
-				innerVisible:false,
+				innerVisible: false,
 			}
 		},
 		methods: {
 			showAlert() {
-				this.isShowAlert = true
-			},
-			close() {
-				this.isShowAlert = false
+			const alert = this.$jj_alert({
+				type:'sheet',
+					title: 'tishi',
+					btns: [{
+						name:"cancel"
+					},{
+						name: "confirm",
+						isTouchClose:false,
+						click:()=>{
+							alert.close()
+						}
+					}]
+				})
+
 			},
 			showDialog() {
 				this.isShowDialog = true
