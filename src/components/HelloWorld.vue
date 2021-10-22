@@ -17,6 +17,9 @@
 		<div class="flexRow marginTopBottom">
 			<button class="btn" @click="showDialog">Dialog</button>
 		</div>
+		<div class="flexRow marginTopBottom">
+			<button class="btn" @click="showPopup">Popup</button>
+		</div>
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
 			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
@@ -26,6 +29,9 @@
 				<button class="btn" style="margin-bottom: 20px;" @click="innerVisible=true">打开内层Dialog</button>
 			</div>
 		</jj-dialog>
+		<jj-popup :visible="isShowPopup" background = "red" @close="isShowPopup=false" :showClose = "false" title = "请选择" :touchClose = "true">
+			<div> 今天天气不错</div>
+		</jj-popup>
 	</div>
 </template>
 
@@ -39,6 +45,7 @@
 			return {
 				isShowDialog: false,
 				innerVisible: false,
+				isShowPopup:false,
 			}
 		},
 		methods: {
@@ -54,8 +61,8 @@
 					width: '60%', //设置弹窗的宽度
 					padding: '20px 30px', //设置内容的上下左右偏移
 					maskColor: "rgba(0, 0, 0, 0.6)", //遮罩层的背景颜色
-					isTouchClose: true, //点击背景图层，是否关闭弹框
-					isShowClose: true, //是否显示右上角的关闭按钮
+					touchClose: true, //点击背景图层，是否关闭弹框
+					showClose: true, //是否显示右上角的关闭按钮
 					closeStyle: {
 						'height': '15px',
 						'width': '15px'
@@ -91,7 +98,7 @@
 							'background-color': '#2A8AFF',
 							'color': '#fff'
 						},
-						isTouchClose: false, //点击按钮时，是否自动关闭弹窗
+						touchClose: false, //点击按钮时，是否自动关闭弹窗
 						click: () => {
 							console.log("点击Destructive")
 							/*
@@ -106,6 +113,9 @@
 			showDialog() {
 				this.isShowDialog = true
 			},
+			showPopup(){
+				this.isShowPopup = true
+			}
 		}
 	}
 </script>

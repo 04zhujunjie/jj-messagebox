@@ -1,7 +1,7 @@
 <template>
 	<div v-if="jj_visible" class="dialog">
 		<div class="shade" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
-			<div class="main" :style="{'width':width}">
+			<div class="main popIn" @click="mainClick" :style="{'width':width,'background':background}">
 				<div class="content" :style="{'padding':padding}">
 					<div v-if="showClose" class="rightTopClose" @click="close"></div>
 					<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
@@ -23,6 +23,11 @@
 				//是否显示遮罩层
 				type: Boolean,
 				default: false,
+			},
+			background:{
+				//弹窗的背景
+				type: String,
+				default: "#fff",
 			},
 			maskColor: {
 				//遮罩层的背景颜色
@@ -91,13 +96,18 @@
 			close() {
 				this.$emit('close')
 				this.jj_visible = false
-			}
+			},
+			mainClick(e) {
+				//阻止事件冒泡
+				e.stopPropagation()
+			},
 		}
 	}
 </script>
 
 <style scoped>
 	@import "../jj-messagebox.css";
+	@import "../jj-pop.css";
 	.dialog {
 		display: flex;
 		flex-direction: column;

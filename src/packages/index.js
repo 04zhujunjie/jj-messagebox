@@ -1,19 +1,20 @@
-import JJDialog from "./dialog/index.js"
-import JJAlert from "./alert/index.js"
+import jjDialog from "./dialog/index.js"
+import jjAlert from "./alert/index.js"
+import jjPopup from './popup/index.js'
 
 // 组件集合，用于遍历
-const components = [JJDialog];
+const components = [jjDialog,jjPopup];
 
 console.log({
 	components
 });
 let messagebox = {}
-// 定义 install 方法
+// install 方法
 messagebox.install = function(Vue) {
 	if (messagebox.install.installed) return;
 	messagebox.install.installed = true
 	//使用JJAlert插件
-	Vue.use(JJAlert)
+	Vue.use(jjAlert)
 	// console.log('------------')
 	// 遍历注册全局组件
 	components.map((component) => Vue.component(component.name, component));
@@ -25,8 +26,9 @@ if (typeof window !== "undefined" && window.Vue) {
 }
 
 export {
-	JJAlert,
-	JJDialog,
+	jjAlert,
+	jjDialog,
+	jjPopup,
 };
 
 export default messagebox

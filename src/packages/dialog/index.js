@@ -1,6 +1,6 @@
-import Dialog from "./jj-dialog.vue"
+import dialog from "./jj-dialog.vue"
 
-Dialog.install = function(Vue){
-	Vue.component(Dialog.name,Dialog)
+dialog.install = function(Vue){
+	Vue.component(dialog.name,dialog)
 }
-export default Dialog
+export default dialog

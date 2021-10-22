@@ -1,8 +1,8 @@
 import Vue from 'vue';
-import Alert from './jj-alert.vue';
-let JJAlert = Vue.extend(Alert); //创建vm实例的构造函数
-JJAlert.install = function(data) {
-	let instance = new JJAlert({
+import alert from './jj-alert.vue';
+let jjAlert = Vue.extend(alert); //创建vm实例的构造函数
+jjAlert.install = function(data) {
+	let instance = new jjAlert({
 		data
 	})
 	/*
@@ -10,13 +10,13 @@ JJAlert.install = function(data) {
 	是Vue.prototype.$jj_alert = JJAlert.install赋值就触发，这个赋值操作不需要显示弹窗，所以installed变量来控制
 	注意⚠️：每次调用this.$jj_alert都会触发该方法
 	*/
-	if (JJAlert.installed) {
+	if (jjAlert.installed) {
 		instance.$mount()
 		document.body.appendChild(instance.$el)
 	}
-	JJAlert.installed = true
+	jjAlert.installed = true
 	return instance
 }
-Vue.prototype.$jj_alert = JJAlert.install
-export default JJAlert
+Vue.prototype.$jj_alert = jjAlert.install
+export default jjAlert
 

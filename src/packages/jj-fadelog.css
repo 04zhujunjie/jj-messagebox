@@ -1,0 +1,80 @@
+
+/*弹层动画（从上往下）*/
+
+/* .fadeIn {
+    -webkit-animation: fadeInDown .3s;
+    animation: fadeInDown .3s;
+}
+
+@keyframes fadeInDown {
+    0% {
+        transform: translate3d(0, -20%, 0);
+        opacity: 0;
+    }
+    100% {
+        transform: none;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeInDown {
+    0% {
+        -webkit-transform: translate3d(0, -20%, 0);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: none;
+        opacity: 1;
+    }
+} */
+
+/*弹层动画（从下往上出现）*/
+
+.fadelogIn {
+    -webkit-animation: fadelogIn .25s;
+    animation: fadelogIn .25s;
+}
+
+@keyframes fadelogIn {
+    0% {
+        transform: translate3d(0, 100%, 0);
+    }
+    100% {
+        transform: none;
+    }
+}
+
+@-webkit-keyframes fadelogIn {
+    0% {
+        -webkit-transform: translate3d(0, 100%, 0);
+    }
+    100% {
+        -webkit-transform: none;
+    }
+}
+
+
+/*弹层动画（从上往下消失）*/
+
+.fadelogOut {
+    -webkit-animation: fadelogOut .25s;
+    animation: fadelogOut .25s;
+}
+
+@keyframes fadelogOut {
+    0% {
+       transform: none;
+    }
+    100% {
+		transform: translate3d(0, 100%, 0);
+    }
+}
+
+@-webkit-keyframes fadelogOut {
+    0% {
+		-webkit-transform: none;
+    }
+    100% {
+        -webkit-transform: translate3d(0, 100%, 0);
+    }
+}
