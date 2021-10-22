@@ -1,10 +1,10 @@
 <template>
-	<div class="shade"  :style="{'background-color':backgroundColor}" @click="isTouchClose?close():''">
-		<div class="main" :style="{'width':contentWidth}">
-			<div class="content" :style="{'padding':contentPadding}">
-				<div v-if="isShowClose" class="rightTopClose" @click="close">x</div>
-				<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
-				<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle"><span>{{message}}</span></div>
+	<div class="shade"  :style="{'background-color':maskColor}" @click="isTouchClose?close():''">
+		<div class="main" :style="{'width':width}">
+			<div class="content" :style="{'padding':padding}" @click="contentClick">
+				<div v-if="isShowClose" class="rightTopClose" :style="closeStyle" @click="close"></div>
+				<div v-if="title.length > 0" class="flexCenter" style="white-space: pre-wrap;" :style="titleStyle"><span>{{title}}</span></div>
+				<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;white-space: pre-wrap;" :style="messageStyle"><span>{{message}}</span></div>
 			</div>
 			<div v-if="type === 'alert'">
 				<div class="btns flexContentSpaceAround">
@@ -29,12 +29,13 @@
 		data() {
 			return {
 				type:'alert', //有alert和sheet
-				backgroundColor:"rgba(0, 0, 0, 0.35)",//遮罩层的背景颜色
+				maskColor:"rgba(0, 0, 0, 0.35)",//遮罩层的背景颜色
 				isTouchClose: false, //点击背景图层，是否关闭弹框
+				closeStyle:{},//右上方关闭按钮的样式
 				isShowClose:false,//是否显示右上角的关闭按钮
-				contentWidth:'80%',//内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
-				contentPadding:'20px',
-				title:"",
+				width:'80%',//内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
+				padding:'20px',
+				title:"提示",
 				titleStyle:{},
 				// titleStyle:{"justify-content":'left',"display": "flex","color":'#fe2','text-align':'left'},
 				message:"",
@@ -59,6 +60,10 @@
 			close() {
 				this.$emit('close')
 				this.$el.remove()
+			},
+			contentClick(e){
+				//阻止事件冒泡
+				e.stopPropagation()
 			},
 			btnStyle(btn) {
 				let length = this.btns.length

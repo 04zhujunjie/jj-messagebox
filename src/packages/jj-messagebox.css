@@ -32,14 +32,14 @@
 }
 
  .rightTopClose {
-	width: 40px;
-	height: 40px;
-	font-size: 1.5rem;
-	text-align: center;
+	width: 14px;
+	height: 14px;
 	position: absolute;
-	color: rgba(0, 0, 0, 0.4);
-	top: 5px;
-	right: 5px;
+	background: url(./jj_close_icon.png);
+	background-repeat: no-repeat;
+	background-size: contain;
+	top: 15px;
+	right: 15px;
 }
 
 @keyframes open {

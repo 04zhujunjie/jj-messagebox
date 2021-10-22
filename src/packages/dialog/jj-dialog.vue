@@ -1,9 +1,9 @@
 <template>
 	<div v-if="jj_visible" class="dialog">
-		<div class="shade" :style="{'background-color':backgroundColor}"  @click="touchClose?close():''">
+		<div class="shade" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
 			<div class="main" :style="{'width':width}">
 				<div class="content" :style="{'padding':padding}">
-					<div v-if="showClose" class="rightTopClose" @click="close">x</div>
+					<div v-if="showClose" class="rightTopClose" @click="close"></div>
 					<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
 					<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle"><span>{{message}}</span></div>
 					<slot></slot>
@@ -24,7 +24,7 @@
 				type: Boolean,
 				default: false,
 			},
-			backgroundColor: {
+			maskColor: {
 				//遮罩层的背景颜色
 				type: String,
 				default: "rgba(0, 0, 0, 0.35)",
