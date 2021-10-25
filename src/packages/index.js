@@ -1,6 +1,8 @@
 import jjDialog from "./dialog/index.js"
 import jjAlert from "./alert/index.js"
+import jjLoading from './loading/index.js'
 import jjPopup from './popup/index.js'
+
 
 // 组件集合，用于遍历
 const components = [jjDialog,jjPopup];
@@ -15,6 +17,7 @@ messagebox.install = function(Vue) {
 	messagebox.install.installed = true
 	//使用JJAlert插件
 	Vue.use(jjAlert)
+	Vue.use(jjLoading)
 	// console.log('------------')
 	// 遍历注册全局组件
 	components.map((component) => Vue.component(component.name, component));
@@ -27,6 +30,7 @@ if (typeof window !== "undefined" && window.Vue) {
 
 export {
 	jjAlert,
+	jjLoading,
 	jjDialog,
 	jjPopup,
 };

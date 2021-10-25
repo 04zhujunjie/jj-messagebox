@@ -7,36 +7,28 @@
 @-webkit-keyframes popIn {
     0% {
         -webkit-transform: scale3d(0, 0, 0);
-        transform: scale3d(0.5, 0.5, 0.5);
         opacity: 0;
     }
     50% {
         -webkit-animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
-        animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
     }
     100% {
         -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
         -webkit-animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         opacity: 1;
     }
 }
 
 @keyframes popIn {
     0% {
-        -webkit-transform: scale3d(0, 0, 0);
         transform: scale3d(0.2, 0.2, 0.2);
         opacity: 0;
     }
     50% {
-        -webkit-animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
         animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
     }
     100% {
-        -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
-        -webkit-animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
         opacity: 1;
     }
@@ -51,32 +43,26 @@
 @-webkit-keyframes popOut {
     0% {
         -webkit-transform: scale3d(1, 1, 1);
-        transform: scale3d(1, 1, 1);
         opacity: 1;
     }
     50% {
         -webkit-animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
-        animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
     }
     100% {
         -webkit-transform: scale3d(0, 0, 0);
-        transform: scale3d(0, 0, 0);;
         opacity: 0;
     }
 }
 
 @keyframes popOut {
     0% {
-        -webkit-transform: scale3d(1, 1, 1);
         transform: scale3d(1, 1, 1);
         opacity: 1;
     }
     50% {
-        -webkit-animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
         animation-timing-function: cubic-bezier(0.47, 0, 0.745, 0.715);
     }
     100% {
-        -webkit-transform: scale3d(0, 0, 0);;
         transform: scale3d(0, 0, 0);;
         opacity: 0;
     }

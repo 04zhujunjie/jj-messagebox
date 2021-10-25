@@ -37,7 +37,7 @@
 	width: 14px;
 	height: 14px;
 	position: absolute;
-	background: url(./jj_close_icon.png);
+	background: url(./static/jj_close_icon.png);
 	background-repeat: no-repeat;
 	background-size: contain;
 	top: 15px;

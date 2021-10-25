@@ -20,6 +20,9 @@
 		<div class="flexRow marginTopBottom">
 			<button class="btn" @click="showPopup">Popup</button>
 		</div>
+		<div class="flexRow marginTopBottom">
+			<button class="btn" @click="showLoading">Loading</button>
+		</div>
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
 			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
@@ -29,7 +32,8 @@
 				<button class="btn" style="margin-bottom: 20px;" @click="innerVisible=true">打开内层Dialog</button>
 			</div>
 		</jj-dialog>
-		<jj-popup :visible="isShowPopup" background = "red" @close="isShowPopup=false" :showClose = "false" title = "请选择" :touchClose = "true">
+		<jj-popup :visible="isShowPopup" background="red" @close="isShowPopup=false" :showClose="false" title="请选择"
+			:touchClose="true">
 			<div> 今天天气不错</div>
 		</jj-popup>
 	</div>
@@ -45,7 +49,7 @@
 			return {
 				isShowDialog: false,
 				innerVisible: false,
-				isShowPopup:false,
+				isShowPopup: false,
 			}
 		},
 		methods: {
@@ -79,7 +83,7 @@
 						"color": '#8a8a8a',
 						'text-align': 'left'
 					}, //内容的样式
-					btns: isShowBtn===false?[]:[{
+					btns: isShowBtn === false ? [] : [{
 						name: "Cancel",
 						click: () => {
 							console.log("点击Cancel")
@@ -113,8 +117,15 @@
 			showDialog() {
 				this.isShowDialog = true
 			},
-			showPopup(){
+			showPopup() {
 				this.isShowPopup = true
+			},
+			showLoading() {
+				let loading = this.$jj_loading({imageSize:{width:'32px',height:'32px'},message:''})
+				setTimeout(() => {
+					console.log(12334)
+					loading.close()
+				}, 3000)
 			}
 		}
 	}

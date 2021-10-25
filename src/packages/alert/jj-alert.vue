@@ -27,6 +27,7 @@
 
 <script>
 	export default {
+		name:'jj-alert',
 		data() {
 			return {
 				type: 'alert', //有alert和sheet
