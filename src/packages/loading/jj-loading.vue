@@ -1,10 +1,10 @@
 <template>
-	<div class="shade" :style="{'background-color':maskColor}">
-		<div class="main popIn" :style="{'width':width,'minHeight':width,'background':background}">
+	<div id = 'jj-loading-id' class="shade" :style="{'background-color':maskColor,'pointer-events': userInteractionEnabled?'none':'auto'}">
+		<div class="main" :style="{'width':width,'minHeight':width,'background':background,'border-radius':radius+'px'}">
 			<div v-if="message.length > 0" class="content" :style="{'padding':padding}">
 				<div class="flexContentCenter">
 					<img class="image" :width="setImageStyle.width" :height="setImageStyle.height" :src="imgUrl" />
-					<span class="message" style="margin-top: 5px;" :style="messageStyle">{{message}}</span>
+					<span class="message" style="margin-top: 6px;" :style="messageStyle">{{message}}</span>
 				</div>
 
 			</div>
@@ -20,17 +20,20 @@
 		name: 'jj-loading',
 		data() {
 			return {
-				type:'',
+				type:'default',//default、round、taichi、
+				radius:5,//圆角
+				userInteractionEnabled:false,//是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
 				maskColor: "transparent", //遮罩层的背景颜色
 				background: 'rgba(0, 0, 0, 0.8)', //弹窗的背景
-				padding: '15px 10px',
-				width: '85px',
+				padding: '15px 10px 10px 10px',
+				width: '85px',//弹窗的大小
 				imageSize: {
 					width: '32px',
 					height: '32px'
 				},
-				message: "加载中...",
-				messageStyle: {},
+				imageUrl:"",
+				message: "加载中...",//弹窗的内容
+				messageStyle: {}, //内容的样式
 			}
 		},
 		computed: {
@@ -45,12 +48,22 @@
 				return style
 			},
 			imgUrl(){
+				if ((this.imageUrl || '').length > 0){
+					return this.imageUrl
+				}
+				if (this.type === 'round'){
+					return require('../static/jj_loading_round_icon.png')
+				}else if (this.type === 'taichi'){
+					return require('../static/jj_loading_taichi_icon.png')
+				}
 				return require('../static/jj_loading_icon.png')
 			}
 		},
 		methods: {
 			close() {
-				this.$el.remove()
+				if (this.$el){
+					this.$el.remove()
+				}
 			},
 		}
 	}
@@ -66,6 +79,7 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
+		pointer-events:
 	}
 
 	.imageCenter {
@@ -79,7 +93,7 @@
 		/* background: url(../static/jj_loading_icon.png); */
 		background-repeat: no-repeat;
 		background-size: contain;
-		animation: turn 1.2s linear infinite;
+		animation: turn 1.5s linear infinite;
 	}
 
 	.message {

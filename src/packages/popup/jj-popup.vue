@@ -3,7 +3,7 @@
 		<div class="shade" style="justify-content:end;align-items: flex-end;" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
 			<div class="main fadelogIn" @click="mainClick" :class="[isPopup?'':'fadelogOut']"  
 			style = "width: 100%;border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;" 
-			:style="{'height':height,'background':background}">
+			:style="{'height':height,'background':background,'border-top-left-radius':radius+'px','border-top-right-radius':radius+'px'}">
 				<div class="content" :style="{'padding':padding}">
 					<div v-if="showClose" class="rightTopClose" @click="close"></div>
 					<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
@@ -25,6 +25,11 @@
 				//是否显示遮罩层
 				type: Boolean,
 				default: false,
+			},
+			radius:{
+				//圆角
+				type: Number,
+				default: 5,
 			},
 			background:{
 				//弹窗的背景

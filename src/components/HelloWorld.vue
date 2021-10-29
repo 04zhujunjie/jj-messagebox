@@ -121,7 +121,11 @@
 				this.isShowPopup = true
 			},
 			showLoading() {
-				let loading = this.$jj_loading({imageSize:{width:'32px',height:'32px'},message:''})
+				const message = '加载中'+(Math.random()*10).toFixed(0)
+				let loading = this.$jj_loading({imageSize:{width:'32px',height:'32px'},userInteractionEnabled:true,message:'',type:'',imageUrl:require('../packages/static/jj_loading_round_icon.png')})
+				
+				console.log(message)
+				// loading.$set('message',message)
 				setTimeout(() => {
 					console.log(12334)
 					loading.close()

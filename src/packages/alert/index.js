@@ -2,6 +2,7 @@ import Vue from 'vue';
 import alert from './jj-alert.vue';
 let jjAlert = Vue.extend(alert); //创建vm实例的构造函数
 jjAlert.install = function(data) {
+	
 	let instance = new jjAlert({
 		data
 	})
@@ -11,6 +12,7 @@ jjAlert.install = function(data) {
 	注意⚠️：每次调用this.$jj_alert都会触发该方法
 	*/
 	if (jjAlert.installed) {
+		console.log('-------',JSON.stringify(data))
 		instance.$mount()
 		document.body.appendChild(instance.$el)
 	}
