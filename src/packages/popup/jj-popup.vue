@@ -2,7 +2,7 @@
 	<div v-if="jj_visible" class="popup">
 		<div class="shade" style="justify-content:end;align-items: flex-end;" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
 			<div class="main fadelogIn" @click="mainClick" :class="[isPopup?'':'fadelogOut']"  
-			style = "width: 100%;border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;" 
+			style = "margin:0px;width: 100%;border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;" 
 			:style="{'height':height,'background':background,'border-top-left-radius':radius+'px','border-top-right-radius':radius+'px'}">
 				<div class="content" :style="{'padding':padding}">
 					<div v-if="showClose" class="rightTopClose" @click="close"></div>

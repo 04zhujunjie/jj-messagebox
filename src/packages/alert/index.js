@@ -12,7 +12,6 @@ jjAlert.install = function(data) {
 	注意⚠️：每次调用this.$jj_alert都会触发该方法
 	*/
 	if (jjAlert.installed) {
-		console.log('-------',JSON.stringify(data))
 		instance.$mount()
 		document.body.appendChild(instance.$el)
 	}

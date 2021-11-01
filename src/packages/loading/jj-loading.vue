@@ -3,10 +3,9 @@
 		<div class="main" :style="{'width':width,'minHeight':width,'background':background,'border-radius':radius+'px'}">
 			<div v-if="message.length > 0" class="content" :style="{'padding':padding}">
 				<div class="flexContentCenter">
-					<img class="image" :width="setImageStyle.width" :height="setImageStyle.height" :src="imgUrl" />
+					<img class="image" :style="{'animation-duration':duration+'s'}" :width="setImageStyle.width" :height="setImageStyle.height" :src="imgUrl" />
 					<span class="message" style="margin-top: 6px;" :style="messageStyle">{{message}}</span>
 				</div>
-
 			</div>
 			<div v-else class="imageCenter" :style="setImageSize">
 				<img class="image" :width="setImageStyle.width" :height="setImageStyle.height" :src="imgUrl" />
@@ -21,6 +20,7 @@
 		data() {
 			return {
 				type:'default',//default、round、taichi、
+				duration:1.5,//动画时间
 				radius:5,//圆角
 				userInteractionEnabled:false,//是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
 				maskColor: "transparent", //遮罩层的背景颜色
@@ -32,7 +32,7 @@
 					height: '32px'
 				},
 				imageUrl:"",
-				message: "加载中...",//弹窗的内容
+				message: "",//弹窗的内容
 				messageStyle: {}, //内容的样式
 			}
 		},
@@ -98,7 +98,7 @@
 
 	.message {
 		color: #FFFFFF;
-		font-size: 13px;
+		font-size: 14.5px;
 		word-break: break-all;
 		white-space: pre-wrap;
 	}

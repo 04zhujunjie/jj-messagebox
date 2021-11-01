@@ -3,6 +3,7 @@ import loading from './jj-loading.vue';
 let jjLoading = Vue.extend(loading); //创建vm实例的构造函数
 jjLoading.install = function(data) {
 	let loadingElement = document.getElementById('jj-loading-id')
+	
 	if (loadingElement) {
 		//移除已有的加载框
 		loadingElement.remove()

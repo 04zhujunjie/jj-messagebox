@@ -1,10 +1,10 @@
 <template>
-	<div class="flexColumnCenter marginLeftRight marginTopBottom">
+	<div class="flexColumnCenter">
 		<div class="flexRow marginTopBottom">
 			<button class="btn" @click="showNormalAlert">
 				默认Alert
 			</button>
-			<button class="btn" style="margin-left: 20px;" @click="showCustomAlert('alert',false)">
+			<button class="btn" style="margin-left: 10px;" @click="showCustomAlert('alert',false)">
 				没有按钮的Alert
 			</button>
 			<button class="btn marginLeftRight" @click="showCustomAlert('alert')">
@@ -21,7 +21,10 @@
 			<button class="btn" @click="showPopup">Popup</button>
 		</div>
 		<div class="flexRow marginTopBottom">
-			<button class="btn" @click="showLoading">Loading</button>
+			<button class="btn" @click="showLoading('default')">Loading</button>
+			<button class="btn" style="margin-left: 10px;" @click="showLoading('round')">Loading-round</button>
+			<button class="btn marginLeftRight" @click="showLoading('taichi')">Loading-taichi</button>
+			<button class="btn" @click="showLoading('custom')">Loading-自定义</button>
 		</div>
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
@@ -29,11 +32,11 @@
 
 			</jj-dialog>
 			<div slot="footer">
-				<button class="btn" style="margin-bottom: 20px;" @click="innerVisible=true">打开内层Dialog</button>
+				<button class="btn" style="margin-bottom: 10px;" @click="innerVisible=true">打开内层Dialog</button>
 			</div>
 		</jj-dialog>
-		<jj-popup :visible="isShowPopup" background="red" @close="isShowPopup=false" :showClose="false" title="请选择"
-			:touchClose="true">
+		<jj-popup :visible="isShowPopup" :background="background" @close="isShowPopup=false" :showClose="true"
+			title="请选择" :touchClose="true">
 			<div> 今天天气不错</div>
 		</jj-popup>
 	</div>
@@ -50,6 +53,8 @@
 				isShowDialog: false,
 				innerVisible: false,
 				isShowPopup: false,
+				// background:require('../assets/background_image.jpeg')
+				background: 'url(' + require('../assets/background_image.jpeg') + ') 0% 0% / cover fixed'
 			}
 		},
 		methods: {
@@ -120,14 +125,33 @@
 			showPopup() {
 				this.isShowPopup = true
 			},
-			showLoading() {
-				const message = '加载中'+(Math.random()*10).toFixed(0)
-				let loading = this.$jj_loading({imageSize:{width:'32px',height:'32px'},userInteractionEnabled:true,message:'',type:'',imageUrl:require('../packages/static/jj_loading_round_icon.png')})
-				
-				console.log(message)
+			showLoading(type) {
+				const loadingData = {
+					imageSize: {
+						width: '32px',
+						height: '32px'
+					}, //设置图片的大小
+					userInteractionEnabled: true,//是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
+					type: type //设置加载框的类型，有default、round、taichi三种
+				}
+				if (type === 'custom') {
+					loadingData['imageUrl'] = require('../assets/loading_custom.png') //图片的大小
+					loadingData['background'] = '#fff' //设置弹框内容的背景色
+					loadingData['message'] = '自定义...' //自定义文本
+					loadingData['messageStyle'] = {
+						color: '#000',
+						'font-size': '17px'
+					} //修改文本样式
+					loadingData['maskColor'] = 'rgba(0, 0, 0, 0.5)' //设置遮罩层的背景色
+				} else if (type === 'round') {
+					loadingData['message'] = 'round...'
+				} else if (type === 'taichi') {
+					loadingData['message'] = 'taichi...'
+				}
+				let loading = this.$jj_loading(loadingData)
 				// loading.$set('message',message)
 				setTimeout(() => {
-					console.log(12334)
+					console.log(12334,loading)
 					loading.close()
 				}, 3000)
 			}
@@ -135,28 +159,31 @@
 	}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+
 <style scoped>
 	.flexColumnCenter {
 		display: flex;
 		flex-direction: column;
-		justify-content: center;
-		align-items: center;
+		width: 100%;
 	}
 
 	.flexRow {
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+		width: 100%;
 	}
 
 	.marginTopBottom {
-		margin-top: 20px;
-		margin-bottom: 20px;
+		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 
 	.marginLeftRight {
-		margin-right: 20px;
-		margin-left: 20px;
+		margin-right: 10px;
+		margin-left: 10px;
 	}
 
 	.btn {
