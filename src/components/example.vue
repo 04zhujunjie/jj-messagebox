@@ -26,6 +26,12 @@
 			<button class="btn marginLeftRight" @click="showLoading('taichi')">Loading-taichi</button>
 			<button class="btn" @click="showLoading('custom')">Loading-自定义</button>
 		</div>
+		
+		<div class="flexRow marginTopBottom">
+			<button class="btn" @click="showToast()">toast</button>
+			<button class="btn" style="margin-left: 10px;" @click="showToast(1)">toast-自定义</button>
+		</div>
+		
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
 			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
@@ -151,9 +157,24 @@
 				let loading = this.$jj_loading(loadingData)
 				// loading.$set('message',message)
 				setTimeout(() => {
-					console.log(12334,loading)
+					// console.log(12334,loading)
 					loading.close()
 				}, 3000)
+			},
+			showToast(type=0){
+				let message = '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈。。。'
+				const toastData = {
+					message:message,
+					duration:3,
+					radius:2
+				}
+				if (type === 1){
+					//自定义
+					toastData['background'] = '#f24'
+					toastData['maxWidth'] = '60%'
+					toastData['messageStyle'] = {'color':'#fe2','text-align':'center'}
+				}
+				this.$jj_toast(toastData)
 			}
 		}
 	}
