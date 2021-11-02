@@ -1,6 +1,6 @@
 <template>
 	<div class="shade" :style="{'background-color':maskColor}" @click="touchClose?close():''">
-		<div class="main popIn" :class="[isCloseAlert?'popOut':'']" @click="mainClick" :style="{'width':width,'border-radius':radius+'px'}">
+		<div class="main popIn" :class="[isCloseAlert?'popOut':'']" @click="mainClick" :style="{'animation-duration':duration+'s','width':width,'border-radius':radius+'px'}">
 			<div class="content" :style="{'padding':padding}">
 				<div v-if="showClose" class="rightTopClose" :style="closeStyle" @click="close"></div>
 				<div v-if="title.length > 0" class="flexCenter" :style="titleStyle">
@@ -31,7 +31,8 @@
 		data() {
 			return {
 				type: 'alert', //有alert和sheet
-				radius:5,
+				duration:0.25,//动画时间
+				radius:5,//圆角
 				maskColor: "rgba(0, 0, 0, 0.35)", //遮罩层的背景颜色
 				background:'#fff', //弹窗的背景
 				touchClose: false, //点击背景图层，是否关闭弹框

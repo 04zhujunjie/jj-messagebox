@@ -1,7 +1,7 @@
 <template>
 	<div v-if="jj_visible" class="dialog">
 		<div class="shade" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
-			<div class="main popIn" @click="mainClick" :style="{'width':width,'background':background,'border-radius':radius+'px'}">
+			<div class="main popIn" @click="mainClick" :style="{'animation-duration':duration+'s','width':width,'background':background,'border-radius':radius+'px'}">
 				<div class="content" :style="{'padding':padding}">
 					<div v-if="showClose" class="rightTopClose" @click="close"></div>
 					<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
@@ -23,6 +23,11 @@
 				//是否显示遮罩层
 				type: Boolean,
 				default: false,
+			},
+			duration:{
+				//动画时间
+				type: Number,
+				default: 0.25,
 			},
 			radius:{
 				//圆角
