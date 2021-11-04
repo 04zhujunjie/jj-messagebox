@@ -26,12 +26,12 @@
 			<button class="btn marginLeftRight" @click="showLoading('taichi')">Loading-taichi</button>
 			<button class="btn" @click="showLoading('custom')">Loading-自定义</button>
 		</div>
-		
+
 		<div class="flexRow marginTopBottom">
-			<button class="btn" @click="showToast()">toast</button>
+			<button class="btn" @click="showToast(0)">toast</button>
 			<button class="btn" style="margin-left: 10px;" @click="showToast(1)">toast-自定义</button>
 		</div>
-		
+
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
 			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
@@ -65,22 +65,21 @@
 		},
 		methods: {
 			showNormalAlert() {
-				this.$jj_alert({
-					title: '提示',
-					message: '时间就像海绵里的水,\n只要愿挤总还是有的。'
-				})
+				this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有的。', '知道了')
 			},
 			showCustomAlert(type, isShowBtn = true) {
+
+				let that = this
 				const alert = this.$jj_alert({
 					type: type, //弹窗的类型有alert和sheet
-					width: '60%', //设置弹窗的宽度
+					width: '70%', //设置弹窗的宽度
 					padding: '20px 30px', //设置内容的上下左右偏移
 					maskColor: "rgba(0, 0, 0, 0.6)", //遮罩层的背景颜色
 					touchClose: true, //点击背景图层，是否关闭弹框
 					showClose: true, //是否显示右上角的关闭按钮
 					closeStyle: {
-						'height': '15px',
-						'width': '15px'
+						'height': '0.85rem',
+						'width': '0.85rem'
 					},
 					title: '提示', //标题
 					titleStyle: {
@@ -95,35 +94,63 @@
 						'text-align': 'left'
 					}, //内容的样式
 					btns: isShowBtn === false ? [] : [{
-						name: "Cancel",
+						title: "Cancel",
+						activeBackground: '#2A8AFF',
+						activeColor: "#fff",
 						click: () => {
 							console.log("点击Cancel")
 						}
 					}, {
-						name: "Destructive",
+						title: "Destructive",
 						style: {
-							'color': 'red'
+							'color': 'red',
+							'font-size':'15px'
 						},
 						click: () => {
 							console.log("点击Destructive")
 						}
 					}, {
-						name: "Confirm",
+						title: "Confirm",
+						activeBackground: '#2f2',
 						style: {
-							'background-color': '#2A8AFF',
+							'background': '#2A8AFF',
 							'color': '#fff'
 						},
 						touchClose: false, //点击按钮时，是否自动关闭弹窗
-						click: () => {
-							console.log("点击Destructive")
+						click: function() {
+							console.log("点击Confirm", alert)
 							/*
-							有时候需要进行网络请求完成后，在进行关闭弹窗
+							有时候需要进行网络请求处理后，在是否进行关闭弹窗
 							这时候可以选择手动关闭弹窗
+							注意：click这个方法，不要使用箭头函数=>方法，使用function方法，这时候this表示的当前按钮对象
 							*/
-							alert.close()
+							that.simulateNetworkRequest(this)
 						}
 					}]
 				})
+			},
+
+			simulateNetworkRequest(btn) {
+				//进行网络模拟，请求网络时候，禁止按钮再次点击，等结果回来后，在考虑是否启用按钮点击事件和是否关闭弹框
+				this.count = this.count || 0
+				this.$jj_toast('按钮被禁用,网络请求中...')
+				//禁用按钮点击事件
+				btn.isDisable = true
+				let that = this
+				if (this.count % 2 === 0) {
+					setTimeout(function() {
+						//启用按钮点击事件
+						btn.isDisable = false
+						that.$jj_toast('请求失败，请点击按钮重新请求')
+					}, 2000)
+				} else {
+					setTimeout(function() {
+						that.$jj_toast('网络请求成功')
+						//关闭弹窗
+						that.$jj_alert_close()
+					}, 2000)
+				}
+				this.count += 1
 			},
 			showDialog() {
 				this.isShowDialog = true
@@ -132,49 +159,65 @@
 				this.isShowPopup = true
 			},
 			showLoading(type) {
-				const loadingData = {
-					imageSize: {
-						width: '32px',
-						height: '32px'
-					}, //设置图片的大小
-					userInteractionEnabled: true,//是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
-					type: type //设置加载框的类型，有default、round、taichi三种
+
+				if (type === 'default') {
+					this.$jj_loading('加载中...')
+					let that = this
+					setTimeout(function() {
+						that.$jj_loading_close()
+					}, 2000)
+				} else {
+					const loadingData = {
+						imageSize: {
+							width: '32px',
+							height: '32px'
+						}, //设置图片的大小
+						userInteractionEnabled: true, //是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
+						type: type //设置加载框的类型，有default、round、taichi三种
+					}
+					if (type === 'custom') {
+						loadingData['imageUrl'] = require('../assets/loading_custom.png') //图片的大小
+						loadingData['background'] = '#fff' //设置弹框内容的背景色
+						loadingData['message'] = '自定义...' //自定义文本
+						loadingData['messageStyle'] = {
+							color: '#000',
+							'font-size': '17px'
+						} //修改文本样式
+						loadingData['maskColor'] = 'rgba(0, 0, 0, 0.5)' //设置遮罩层的背景色
+					} else if (type === 'round') {
+						loadingData['message'] = 'round...'
+					} else if (type === 'taichi') {
+						loadingData['message'] = 'taichi...'
+					}
+					let loading = this.$jj_loading(loadingData)
+					setTimeout(() => {
+						loading.close()
+					}, 2000)
 				}
-				if (type === 'custom') {
-					loadingData['imageUrl'] = require('../assets/loading_custom.png') //图片的大小
-					loadingData['background'] = '#fff' //设置弹框内容的背景色
-					loadingData['message'] = '自定义...' //自定义文本
-					loadingData['messageStyle'] = {
-						color: '#000',
-						'font-size': '17px'
-					} //修改文本样式
-					loadingData['maskColor'] = 'rgba(0, 0, 0, 0.5)' //设置遮罩层的背景色
-				} else if (type === 'round') {
-					loadingData['message'] = 'round...'
-				} else if (type === 'taichi') {
-					loadingData['message'] = 'taichi...'
-				}
-				let loading = this.$jj_loading(loadingData)
-				// loading.$set('message',message)
-				setTimeout(() => {
-					// console.log(12334,loading)
-					loading.close()
-				}, 3000)
+
+
 			},
-			showToast(type=0){
+			showToast(type) {
 				let message = '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈。。。'
-				const toastData = {
-					message:message,
-					duration:3,
-					radius:2
-				}
-				if (type === 1){
+
+				if (type === 1) {
 					//自定义
+					const toastData = {
+						message: message,
+						duration: 3,
+						radius: 2
+					}
 					toastData['background'] = '#f24'
 					toastData['maxWidth'] = '60%'
-					toastData['messageStyle'] = {'color':'#fe2','text-align':'center'}
+					toastData['messageStyle'] = {
+						'color': '#fe2',
+						'text-align': 'center'
+					}
+					this.$jj_toast(toastData)
+				} else {
+					this.$jj_toast(message)
 				}
-				this.$jj_toast(toastData)
+
 			}
 		}
 	}
@@ -182,6 +225,11 @@
 
 
 <style scoped>
+	flexColumnCenter>>>.btn:active {
+		color: #FFFFFF;
+		background: #2C3E50;
+	}
+
 	.flexColumnCenter {
 		display: flex;
 		flex-direction: column;

@@ -1,7 +1,7 @@
 <template>
-	<div id = 'jj-loading-id' class="shade" :style="{'background-color':maskColor,'pointer-events': userInteractionEnabled?'none':'auto'}">
-		<div class="main" :style="{'width':width,'minHeight':width,'background':background,'border-radius':radius+'px'}">
-			<div v-if="message.length > 0" class="content" :style="{'padding':padding}">
+	<div id = 'jj-loading-id' class="messagebox-shade" :style="{'background-color':maskColor,'pointer-events': userInteractionEnabled?'none':'auto'}">
+		<div class="messagebox-main" :style="{'width':width,'minHeight':width,'background':background,'border-radius':radius+'px'}">
+			<div v-if="message.length > 0" class="messagebox-content" :style="{'padding':padding}">
 				<div class="flexContentCenter">
 					<img class="image" :style="{'animation-duration':duration+'s'}" :width="setImageStyle.width" :height="setImageStyle.height" :src="imgUrl" />
 					<span class="message" style="margin-top: 6px;" :style="messageStyle">{{message}}</span>
@@ -79,7 +79,6 @@
 		justify-content: center;
 		align-items: center;
 		position: relative;
-		pointer-events:
 	}
 
 	.imageCenter {
@@ -90,7 +89,6 @@
 	}
 
 	.image {
-		/* background: url(../static/jj_loading_icon.png); */
 		background-repeat: no-repeat;
 		background-size: contain;
 		animation: turn 1.5s linear infinite;

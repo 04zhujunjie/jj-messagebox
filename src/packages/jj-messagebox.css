@@ -1,17 +1,17 @@
-.shade {
+.messagebox-shade {
 	width: 100%;
 	height: 100%;
 	position: fixed;
 	bottom: 0;
 	right: 0;
 	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 998;
+	z-index: 999;
 	display: flex;
 	align-items: center;
 	justify-content: center;
 }
 
-.main {
+.messagebox-main {
 	background: white;
 	width: 80%;
 	border-radius: 5px;
@@ -23,7 +23,7 @@
 	background-attachment: fixed;
 }
 
-.content {
+.messagebox-content {
 	box-sizing: border-box;
 	width: 100%;
 	padding: 20px;

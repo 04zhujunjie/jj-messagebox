@@ -1,7 +1,7 @@
 <template>
-	<div id = 'jj-toast-id' v-if="message.length > 0" class="shade" :style="{'background-color':maskColor,'pointer-events': 'none'}">
-		<div class="main"  :style="{'width':'auto','maxWidth':maxWidth,'background':background,'border-radius':radius+'px'}">
-			<div  class="content" :style="{'padding':padding}">
+	<div id = 'jj-toast-id' v-if="message.length > 0" class="messagebox-shade" :style="{'background-color':maskColor,'pointer-events': 'none'}">
+		<div class="messagebox-main"  :style="{'width':'auto','maxWidth':maxWidth,'background':background,'border-radius':radius+'px'}">
+			<div  class="messagebox-content" :style="{'padding':padding}">
 				<span class="message" :style="messageStyle">{{message}}</span>
 			</div>
 		</div>

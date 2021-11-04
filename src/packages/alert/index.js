@@ -1,8 +1,19 @@
 import Vue from 'vue';
 import alert from './jj-alert.vue';
 let jjAlert = Vue.extend(alert); //创建vm实例的构造函数
-jjAlert.install = function(data) {
-	
+
+let jj_alert_close = function(){
+	let alertElement = document.getElementById('jj-alert-id')
+	if (alertElement) {
+		//移除已有的alert框
+		alertElement.remove()
+	} 
+}
+
+let jj_alert = function(alertData,message,btnTitle) {
+	const data = getData(alertData,message,btnTitle)
+	//移除已有的弹框
+	jj_alert_close()
 	let instance = new jjAlert({
 		data
 	})
@@ -17,7 +28,45 @@ jjAlert.install = function(data) {
 	}
 	jjAlert.installed = true
 	return instance
+	
 }
-Vue.prototype.$jj_alert = jjAlert.install
+
+let getData = function(alertData,message,btnTitle){
+	let data = {}
+	const isAlertDataNull = (alertData === undefined || alertData === null)
+	const isMessageNull = (message === undefined || message === null)
+	const isBtnTitileNull = (btnTitle === undefined || btnTitle === null)
+	if(isAlertDataNull&&isMessageNull&&isBtnTitileNull){
+		return
+	}else{
+		if (!isAlertDataNull){
+			if (alertData.constructor === Object) {
+				data = {
+					...alertData
+				}
+				return data
+			}else{
+				data['title'] = alertData+''
+			}
+		}
+		
+		if(!isMessageNull){
+			data['message'] = message + ''
+		}
+		if(!isBtnTitileNull){
+			data['btns'] = [{
+				'title':btnTitle
+			}] 
+		}
+		
+	}
+	return data
+}
+
+jjAlert.install = function(data) {
+    return jj_alert(data)
+}
+Vue.prototype.$jj_alert = jj_alert
+Vue.prototype.$jj_alert_close = jj_alert_close
 export default jjAlert
 

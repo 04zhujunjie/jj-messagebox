@@ -1,13 +1,33 @@
 import Vue from 'vue';
 import loading from './jj-loading.vue';
 let jjLoading = Vue.extend(loading); //创建vm实例的构造函数
-jjLoading.install = function(data) {
+
+let jj_loading_close = function(){
 	let loadingElement = document.getElementById('jj-loading-id')
-	
 	if (loadingElement) {
 		//移除已有的加载框
 		loadingElement.remove()
 	} 
+}
+
+let jj_loading = function(loadingData){
+	let data = {}
+	if(loadingData === undefined || loadingData === null){
+		return
+	}else{
+		if (loadingData.constructor === Object) {
+			data = {
+				...loadingData
+			}
+		}else{
+			data = {
+				"message": loadingData+'',
+			}
+		}
+	}
+	
+	jj_loading_close()
+	
 	let instance = new jjLoading({
 		data
 	})
@@ -22,7 +42,11 @@ jjLoading.install = function(data) {
 	}
 	jjLoading.installed = true
 	return instance
-
 }
-Vue.prototype.$jj_loading = jjLoading.install
+
+jjLoading.install = function(data) {
+	return jj_loading(data)
+}
+Vue.prototype.$jj_loading = jj_loading
+Vue.prototype.$jj_loading_close = jj_loading_close
 export default jjLoading

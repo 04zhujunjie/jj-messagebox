@@ -1,10 +1,10 @@
 <template>
-	<div v-if="jj_visible" class="popup">
-		<div class="shade" style="justify-content:end;align-items: flex-end;" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
-			<div class="main fadelogIn" @click="mainClick" :class="[isPopup?'':'fadelogOut']"  
+	<div v-if="jj_visible" class="jj-popup">
+		<div class="messagebox-shade" style="justify-content:end;align-items: flex-end;" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
+			<div class="messagebox-main fadelogIn" @click="mainClick" :class="[isPopup?'':'fadelogOut']"  
 			style = "margin:0px;width: 100%;border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;" 
 			:style="{'animation-duration':duration+'s','height':height,'background':background,'border-top-left-radius':radius+'px','border-top-right-radius':radius+'px'}">
-				<div class="content" :style="{'padding':padding}">
+				<div class="messagebox-content" :style="{'padding':padding}">
 					<div v-if="showClose" class="rightTopClose" @click="close"></div>
 					<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
 					<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle"><span>{{message}}</span></div>
@@ -132,7 +132,7 @@
 <style scoped>
 	@import "../jj-messagebox.css";
 	@import "../jj-fadelog.css";
-	.popup {
+	.jj-popup {
 		display: flex;
 		flex-direction: column;
 	}
