@@ -34,7 +34,6 @@ import messagebox from "jj-messagebox"
 
 //注册全部插件（alert,dialog,popup,loading,toast）
 Vue.use(messagebox)
-
 ```
 2、在main.js文件全局部分引入
 
@@ -50,7 +49,6 @@ import {jjLoading}  from "jj-messagebox"
 
 //注册某个插件，如加载提示框
 Vue.use(jjLoading)
-
 ```
 
 3、非全局安装，在某个组件中引入（只支持jjDialog和jjPopup）
@@ -68,7 +66,6 @@ export default {
         jjDialog
     }
 }
-
 ```
 
 ### alert使用
@@ -85,7 +82,6 @@ export default {
 this.$jj_alert('时间就像海绵里的水,\n只要愿挤总还是有的。')
 或
 this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有的。', '知道了')
-
 ```
 2、自定义alert，需要传入一个Objec对象
 ```
@@ -193,7 +189,6 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
 			title="请选择" :touchClose="true">
  <div> 今天天气不错</div>
 </jj-popup>
-
 ```
 
 #### props参数说明
@@ -208,7 +203,7 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
 | touchClose   | 点击遮罩层，是否关闭弹框  | Boolean   | false |
 | showClose   | 是否显示右上角的关闭按钮  | Boolean   | true |
 | closeStyle   | 右上方关闭按钮的样式  | Object   | {} |
-| width   |弹框的宽度，可以是百分比或具体像素值 |  String | '80%'| 
+| height   |弹框的高度，可以是百分比或具体像素值 |  String | '60%'| 
 | padding   |内容上下左右偏移 | String   | '20px' | 
 | title   |标题 | String   | - | 
 | titleStyle   |标题的样式 | Object   | {} | 
@@ -226,7 +221,6 @@ setTimeout(function() {
 //关闭弹框
 that.$jj_loading_close()
 }, 2000)
-
 ```
 2、自定义loading
 ```
@@ -242,7 +236,6 @@ const loadingData = {imageSize: {width: '32px',height: '32px'}, //设置图片�
 		        //关闭弹框
 			loading.close()
 			}, 2000)
-
 ```
 3、关闭loading
 ```
@@ -254,7 +247,6 @@ this.$jj_loading_close()
 let loading = this.$jj_loading(loadingData)
 //关闭弹框
  loading.close()
-
 ```
 #### 参数说明
 
@@ -263,11 +255,11 @@ let loading = this.$jj_loading(loadingData)
 | type   |有default、round、taichi  | String   | 'default' | 
 | duration   |图片旋转一周动画时间，单位s秒  | Number   | 1.5 | 
 | radius   |弹框的圆角  | Number   | 5 | 
-| maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
-| background   | 弹窗内容的背景  | String   | '#fff' |
+| maskColor   | 遮罩层的背景颜色  | String   | 'transparent'|
+| background   | 弹窗内容的背景  | String   | 'rgba(0, 0, 0, 0.8)' |
 | userInteractionEnabled   | 遮罩层下的事件是否可以交互  | Boolean   | false |
 | width   |弹框的宽度，可以是百分比或具体像素值 |  String | '85px'| 
-| padding   |内容上下左右偏移 | String   | '20px' | 
+| padding   |内容上下左右偏移 | String   | '15px 10px 10px 10px' | 
 | imageUrl   |图片的链接地址 | String   | - | 
 | imageSize   |图片的大小 | Object   | {width: '32px',height: '32px'} | 
 | message   |内容 | String   | - | 
@@ -278,7 +270,6 @@ let loading = this.$jj_loading(loadingData)
 1、使用默认的toast
 ```
 this.$jj_toast("请求成功")
-
 ```
 2、自定义toast
 ```
@@ -291,8 +282,7 @@ const toastData = {message: message,
 				'text-align': 'center'
 				}
 		 }
-        this.$jj_toast(toastData)
-	
+  this.$jj_toast(toastData)
 ```
 
 
@@ -300,11 +290,10 @@ const toastData = {message: message,
 
 |  参数  |  说明 |  类型 | 默认值 |
 | ---------- | -----------| -----------| -----------|
-
-| duration   |显示的时长，单位s秒  | Number   | 1.5 | 
+| duration   |显示的时长，单位s秒  | Number   | 2.5 | 
 | radius   |弹框的圆角  | Number   | 5 | 
-| maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
-| background   | 弹窗内容的背景  | String   | '#fff' |
+| maskColor   | 遮罩层的背景颜色  | String   | 'transparent'|
+| background   | 弹窗内容的背景  | String   | 'rgba(0, 0, 0, 0.8)' |
 | maxWidth   |弹框的最大宽度，可以是百分比或具体像素值 |  String | '80%'| 
 | padding   |内容上下左右偏移 | String   | '12px' | 
 | message   |内容 | String   | - | 
