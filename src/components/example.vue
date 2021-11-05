@@ -28,12 +28,16 @@
 		</div>
 
 		<div class="flexRow marginTopBottom">
-			<button class="btn" @click="showToast(0)">toast</button>
-			<button class="btn" style="margin-left: 10px;" @click="showToast(1)">toast-自定义</button>
+			<button class="btn" @click="showToast('')">toast</button>
+			<button class="btn marginLeftRight" @click="showToast('success')">toast-success</button>
+			<button class="btn" @click="showToast('fail')">toast-fail</button>
+			<button class="btn marginLeftRight" @click="showToast('warn')">toast-warn</button>
+			<button class="btn" style="margin-left: 10px;" @click="showToast('custom')">toast-自定义</button>
 		</div>
 
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
+			<div> 自定Dialog内容</div>
 			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
 
 			</jj-dialog>
@@ -176,7 +180,7 @@
 						type: type //设置加载框的类型，有default、round、taichi三种
 					}
 					if (type === 'custom') {
-						loadingData['imageUrl'] = require('../assets/loading_custom.png') //图片的大小
+						loadingData['imageUrl'] = require('../assets/loading_custom.png') //图片链接
 						loadingData['background'] = '#fff' //设置弹框内容的背景色
 						loadingData['message'] = '自定义...' //自定义文本
 						loadingData['messageStyle'] = {
@@ -198,23 +202,29 @@
 
 			},
 			showToast(type) {
-				let message = '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈。。。'
-
-				if (type === 1) {
+				let message = '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈。。。'
+				const toastData = {
+					duration: 3,
+					radius: 3
+				}
+				if (type === 'custom') {
 					//自定义
-					const toastData = {
-						message: message,
-						duration: 3,
-						radius: 2
-					}
+					toastData['message'] = message
 					toastData['background'] = '#f24'
 					toastData['maxWidth'] = '60%'
 					toastData['messageStyle'] = {
 						'color': '#fe2',
 						'text-align': 'center'
 					}
+					toastData['padding'] = '20px'
+					toastData["imageSize"] = {width:'60px',height:'60px'}
+					toastData["imageUrl"] = require('../assets/logo.png')
 					this.$jj_toast(toastData)
-				} else {
+				} else if(type.length > 0) {
+					
+					//第一个参数为提示信息文本，第二个参数为提示类型，第三个参数为显示的时长
+					this.$jj_toast(type,type,1)
+				}else{
 					this.$jj_toast(message)
 				}
 
@@ -225,10 +235,6 @@
 
 
 <style scoped>
-	flexColumnCenter>>>.btn:active {
-		color: #FFFFFF;
-		background: #2C3E50;
-	}
 
 	.flexColumnCenter {
 		display: flex;

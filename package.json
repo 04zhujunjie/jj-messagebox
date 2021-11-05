@@ -1,7 +1,7 @@
 
 {
   "name": "jj-messagebox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": false,
   "keywords":["messagebox","alert","dialog","loading","toast"],
   "description":"基于Vue的弹框",
@@ -16,14 +16,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-	"lib":"vue-cli-service build --target lib --name messagebox --dest lib src/packages/index.js"
+	"lib":"vue-cli-service build --target lib --name messagebox --dest lib src/jj-messagebox/index.js"
   },
-  
-  
-  
-  
- 
-  
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/04zhujunjie/jj-messagebox.git"
+    },
+  "license":"MIT",
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^2.6.11"

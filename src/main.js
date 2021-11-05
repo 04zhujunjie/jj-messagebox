@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 
-import jj_messagebox from './packages/index.js'
+import jj_messagebox from './jj-messagebox/index.js'
 
 Vue.use(jj_messagebox)
 
