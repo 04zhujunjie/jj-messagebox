@@ -172,7 +172,7 @@ let alert = this.$jj_alert(alertData)
   </jj-dialog>
 ```
 
-#### props参数说明
+#### Props参数说明
 
 |  参数  |  说明 |  类型 | 默认值 |
 | ---------- | -----------| :-----------:| :-----------:|
@@ -191,6 +191,11 @@ let alert = this.$jj_alert(alertData)
 | message   |内容 | String   | - | 
 | messageStyle   |内容的样式  | Object   | {}| 
 
+#### Events
+
+|  事件名  |  说明 |  回调参数 |
+| ---------- | -----------| :-----------:|
+| close   |右上角的关闭按钮事件  | —— |
 
 ### popup使用
 -------
@@ -202,7 +207,7 @@ let alert = this.$jj_alert(alertData)
 </jj-popup>
 ```
 
-#### props参数说明
+#### Props参数说明
 
 |  参数  |  说明 |  类型 | 默认值 |
 | ---------- | -----------| :-----------:| :-----------:|
@@ -221,6 +226,11 @@ let alert = this.$jj_alert(alertData)
 | message   |内容 | String   | - | 
 | messageStyle   |内容的样式  | Object   | {}| 
 
+#### Events
+
+|  事件名  |  说明 |  回调参数 |
+| ---------- | -----------| :-----------:|
+| close   |右上角的关闭按钮事件  | —— |
 
 ### loading使用
 -------
