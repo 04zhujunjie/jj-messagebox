@@ -16,8 +16,8 @@
 ```
 npm i jj-messagebox --save
 ```
-2、手动安装，下载该项目，将项目packages文件夹（路径：src/packages）拷贝到项目中，
-引用packages文件夹下的index.js文件
+2、手动安装，下载该项目，将项目jj-messagebox文件夹（路径：src/jj-messagebox）拷贝到项目中，
+引用jj-messagebox文件夹下的index.js文件
 
 ### 引用
 -------
@@ -27,7 +27,7 @@ npm i jj-messagebox --save
 ```
 /*
 1、手动安装，需要指定文件
-import messagebox from './packages/index.js'
+import messagebox from './jj-messagebox/index.js'
 */
 //2、通过npm安装
 import messagebox from "jj-messagebox"
@@ -43,7 +43,7 @@ Vue.use(messagebox)
 //下面是指定安装加载提示框插件
 /*
 1、手动安装，需要指定文件
-import {jjLoading} from './packages/index.js'
+import {jjLoading} from './jj-messagebox/index.js'
 */
 //2、通过npm安装
 import {jjLoading}  from "jj-messagebox"
@@ -57,7 +57,7 @@ Vue.use(jjLoading)
 ```
 /*
 1、手动安装，需要指定文件
-import {jjDialog} from './packages/index.js'
+import {jjDialog} from './jj-messagebox/index.js'
 */
 //2、通过npm安装
 import {jjDialog}  from "jj-messagebox"
@@ -165,13 +165,149 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
   </jj-dialog>
 ```
 
+#### props参数说明
+
+|  参数  |  说明 |  类型 | 默认值 |
+| ---------- | -----------| -----------| -----------|
+| visible   |是否显示  | Boolean   | false | 
+| duration   |动画时间，单位s秒  | Number   | 0.25 | 
+| radius   |弹框的圆角  | Number   | 5 | 
+| maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
+| background   | 弹窗内容的背景  | String   | '#fff' |
+| touchClose   | 点击遮罩层，是否关闭弹框  | Boolean   | false |
+| showClose   | 是否显示右上角的关闭按钮  | Boolean   | true |
+| closeStyle   | 右上方关闭按钮的样式  | Object   | {} |
+| width   |弹框的宽度，可以是百分比或具体像素值 |  String | '80%'| 
+| padding   |内容上下左右偏移 | String   | '20px' | 
+| title   |标题 | String   | - | 
+| titleStyle   |标题的样式 | Object   | {} | 
+| message   |内容 | String   | - | 
+| messageStyle   |内容的样式  | Object   | {}| 
+
 
 ### popup使用
 -------
 
+```
+<jj-popup :visible="isShowPopup" :background="background" @close="isShowPopup=false" :showClose="true"
+			title="请选择" :touchClose="true">
+ <div> 今天天气不错</div>
+</jj-popup>
+
+```
+
+#### props参数说明
+
+|  参数  |  说明 |  类型 | 默认值 |
+| ---------- | -----------| -----------| -----------|
+| visible   |是否显示  | Boolean   | false | 
+| duration   |动画时间，单位s秒  | Number   | 0.25 | 
+| radius   |弹框的圆角  | Number   | 5 | 
+| maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
+| background   | 弹窗内容的背景  | String   | '#fff' |
+| touchClose   | 点击遮罩层，是否关闭弹框  | Boolean   | false |
+| showClose   | 是否显示右上角的关闭按钮  | Boolean   | true |
+| closeStyle   | 右上方关闭按钮的样式  | Object   | {} |
+| width   |弹框的宽度，可以是百分比或具体像素值 |  String | '80%'| 
+| padding   |内容上下左右偏移 | String   | '20px' | 
+| title   |标题 | String   | - | 
+| titleStyle   |标题的样式 | Object   | {} | 
+| message   |内容 | String   | - | 
+| messageStyle   |内容的样式  | Object   | {}| 
+
 
 ### loading使用
 -------
+1、使用默认的loading
+```
+this.$jj_loading('加载中...')
+let that = this
+setTimeout(function() {
+//关闭弹框
+that.$jj_loading_close()
+}, 2000)
+
+```
+2、自定义loading
+```
+const loadingData = {imageSize: {width: '32px',height: '32px'}, //设置图片的大小
+		     userInteractionEnabled: true, //是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
+		     type: 'round' //设置加载框的类型，有default、round、taichi三种
+		     imageUrl:require('../assets/loading_custom.png')//图片链接,如果设置图片链接，type类型失效
+		     background:'#fff' //设置弹框内容的背景色
+		     message："自定义..."
+		     }
+		     let loading = this.$jj_loading(loadingData)
+		    setTimeout(() => {
+		        //关闭弹框
+			loading.close()
+			}, 2000)
+
+```
+3、关闭loading
+```
+//有两种方式关闭
+
+//1、使用全局方法关闭
+this.$jj_loading_close()
+//2、使用对象调用关闭方法
+let loading = this.$jj_loading(loadingData)
+//关闭弹框
+ loading.close()
+
+```
+#### 参数说明
+
+|  参数  |  说明 |  类型 | 默认值 |
+| ---------- | -----------| -----------| -----------|
+| type   |有default、round、taichi  | String   | 'default' | 
+| duration   |图片旋转一周动画时间，单位s秒  | Number   | 1.5 | 
+| radius   |弹框的圆角  | Number   | 5 | 
+| maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
+| background   | 弹窗内容的背景  | String   | '#fff' |
+| userInteractionEnabled   | 遮罩层下的事件是否可以交互  | Boolean   | false |
+| width   |弹框的宽度，可以是百分比或具体像素值 |  String | '85px'| 
+| padding   |内容上下左右偏移 | String   | '20px' | 
+| imageUrl   |图片的链接地址 | String   | - | 
+| imageSize   |图片的大小 | Object   | {width: '32px',height: '32px'} | 
+| message   |内容 | String   | - | 
+| messageStyle   |内容的样式  | Object   | {}| 
 
 ### toast使用
 -------
+1、使用默认的toast
+```
+this.$jj_toast("请求成功")
+
+```
+2、自定义toast
+```
+const toastData = {message: message,
+		   duration: 3,
+		   radius: 2,
+		   background:'#f24',
+		   maxWidth:'60%',
+		   messageStyle:{'color': '#fe2',
+				'text-align': 'center'
+				}
+		 }
+        this.$jj_toast(toastData)
+	
+```
+
+
+#### 参数说明
+
+|  参数  |  说明 |  类型 | 默认值 |
+| ---------- | -----------| -----------| -----------|
+
+| duration   |显示的时长，单位s秒  | Number   | 1.5 | 
+| radius   |弹框的圆角  | Number   | 5 | 
+| maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
+| background   | 弹窗内容的背景  | String   | '#fff' |
+| maxWidth   |弹框的最大宽度，可以是百分比或具体像素值 |  String | '80%'| 
+| padding   |内容上下左右偏移 | String   | '12px' | 
+| message   |内容 | String   | - | 
+| messageStyle   |内容的样式  | Object   | {}| 
+
+
