@@ -120,41 +120,50 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
 ```
 #### 参数说明
 
-|  参数  | 类型 | 默认值 |  说明 | 
+|  参数  |  说明 |  类型 | 默认值 |
 | ---------- | -----------| -----------| -----------|
-| type   | String   | 'alert'   | 有alert和sheet   |
-| duration   | Number   | 0.25   | 动画时间，单位s秒  |
-| radius   | Number   | 5   | 弹框的圆角  |
-| maskColor   | String   | 'rgba(0, 0, 0, 0.35) '  | 遮罩层的背景颜色  |
-| background   | String   | '#fff'   | 弹窗内容的背景  |
-| touchClose   | Boolean   | false   | 点击遮罩层，是否关闭弹框  |
-| showClose   | Boolean   | false   | 是否显示右上角的关闭按钮  |
-| closeStyle   | Object   | {}   | 右上方关闭按钮的样式  |
-| width   | String   | '80%'   | 内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px |
-| padding   | String   | '20px'   | 内容上下左右偏移 |
-| title   | String   | ''   | 标题 |
-| titleStyle   | Object   | {}   | 标题的样式 |
-| message   | String   | ''   | 内容 |
-| messageStyle   | Object   | {}   | 内容的样式  |
-| btns   | Array   | [{title:"确认"}]   | 按钮列表 |
+| type   |有alert和sheet   | String   | 'alert' | 
+| duration   |动画时间，单位s秒  | Number   | 0.25 | 
+| radius   |弹框的圆角  | Number   | 5 | 
+| maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
+| background   | 弹窗内容的背景  | String   | '#fff' |
+| touchClose   | 点击遮罩层，是否关闭弹框  | Boolean   | false |
+| showClose   | 是否显示右上角的关闭按钮  | Boolean   | false |
+| closeStyle   | 右上方关闭按钮的样式  | Object   | {} |
+| width   |弹框的宽度，可以是百分比或具体像素值 |  String | '80%'| 
+| padding   |内容上下左右偏移 | String   | '20px' | 
+| title   |标题 | String   | - | 
+| titleStyle   |标题的样式 | Object   | {} | 
+| message   |内容 | String   | - | 
+| messageStyle   |内容的样式  | Object   | {}| 
+| btns   | 按钮列表 | Array | [{title:"确认"}] |
 
 
 #### button按钮的参数说明
 
-|  参数  | 类型 | 默认值 |  说明 | 
+|  参数  |  说明 | 类型 | 默认值 | 
 | ---------- | -----------| -----------| -----------|
-| title   | String   |    | 按钮的文本   |
-| activeBackground   | String   |    | 按钮激活的背景色   |
-| activeColor   | String   |    | 按钮激活的字体颜色   |
-| style   | Object   |  {}  |按钮的文本样式   |
-| touchClose   | Boolean   |  true  | 点击按钮，是否自动关闭弹框   |
-| isDisable   | Boolean   |  false  | 是否禁用按钮   |
-| click   | Function   |    | 按钮点击事件  |
+| title   | 按钮的文本   | String   |  -  |
+| activeBackground |按钮激活的背景色   | String   |  -  | 
+| activeColor   | 按钮激活的字体颜色   | String   |   - | 
+| style   |按钮的文本样式   | Object   |  {}  |
+| touchClose   |点击按钮，是否自动关闭弹框   | Boolean   |  true  | 
+| isDisable   |是否禁用按钮   | Boolean   |  false  | 
+| click   |按钮点击事件  | Function   |  -  | 
 
 
 
 ### dialog使用
 -------
+```
+  <jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="Dialog"
+			@close="isShowDialog=false">
+   <div> 自定Dialog内容</div>
+   <div slot="footer">
+   <button class="btn" style="margin-bottom: 10px;" @click="isShowDialog=true">确定</button>
+   </div>
+  </jj-dialog>
+```
 
 
 ### popup使用
