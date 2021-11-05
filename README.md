@@ -114,6 +114,17 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
        }]
   })
 ```
+3、关闭alert
+```
+//有两种方式关闭
+//1、使用全局方法关闭
+this.$jj_alert_close()
+//2、使用对象调用关闭方法
+let alert = this.$jj_alert(alertData)
+//关闭弹框
+ alert.close()
+```
+
 #### 参数说明
 
 |  参数  |  说明 |  类型 | 默认值 |
@@ -269,7 +280,16 @@ let loading = this.$jj_loading(loadingData)
 -------
 1、使用默认的toast
 ```
+/*
+   一共有三个参数 第一参数是提示信息，第二个参数是提示的类型（success，fail，warn），第三个参数是显示的时长
+*/
+
+//只显示文本
 this.$jj_toast("请求成功")
+//显示文本和提示的类型
+this.$jj_toast("成功",'success')
+//显示文本和设置显示的时长
+this.$jj_toast("提交成功",'',3)
 ```
 2、自定义toast
 ```
@@ -290,12 +310,16 @@ this.$jj_toast(toastData)
 
 |  参数  |  说明 |  类型 | 默认值 |
 | ---------- | -----------| :-----------:| :-----------:|
+| type   | 提示的类型（success，fail，warn）  | String   | - |
 | duration   |显示的时长，单位s秒  | Number   | 2.5 | 
 | radius   |弹框的圆角  | Number   | 5 | 
 | maskColor   | 遮罩层的背景颜色  | String   | 'transparent'|
 | background   | 弹窗内容的背景  | String   | 'rgba(0, 0, 0, 0.8)' |
 | maxWidth   |弹框的最大宽度，可以是百分比或具体像素值 |  String | '80%'| 
+| minWidth   |弹框的最小宽度，可以是百分比或具体像素值 |  String | '85px'| 
 | padding   |内容上下左右偏移 | String   | '12px' | 
+| imageUrl   |图片的链接地址 | String   | - | 
+| imageSize   |图片的大小 | Object   | {width: '32px',height: '32px'} | 
 | message   |内容 | String   | - | 
 | messageStyle   |内容的样式  | Object   | {}| 
 
