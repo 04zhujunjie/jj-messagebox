@@ -86,7 +86,7 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
 2、自定义alert，需要传入一个Objec对象
 ```
   this.$jj_alert({
-          type: type, //弹窗的类型有alert和sheet
+          type: "alert", //弹窗的类型有alert和sheet
 	  width: '70%', //设置弹窗的宽度
 	  padding: '20px 30px', //设置内容的上下左右偏移
 	  maskColor: "rgba(0, 0, 0, 0.6)", //遮罩层的背景颜色
@@ -237,10 +237,10 @@ that.$jj_loading_close()
 ```
 const loadingData = {imageSize: {width: '32px',height: '32px'}, //设置图片的大小
 		     userInteractionEnabled: true, //是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
-		     type: 'round' //设置加载框的类型，有default、round、taichi三种
-		     imageUrl:require('../assets/loading_custom.png')//图片链接,如果设置图片链接，type类型失效
-		     background:'#fff' //设置弹框内容的背景色
-		     message："自定义..."
+		     type: 'round', //设置加载框的类型，有default、round、taichi三种
+		     //imageUrl:require('../assets/loading_custom.png'),//图片链接,如果设置图片链接，type类型失效
+		     background:'#fff', //设置弹框内容的背景色
+		     message:"自定义..."
 		     }
 let loading = this.$jj_loading(loadingData)
 setTimeout(() => {
