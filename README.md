@@ -239,7 +239,7 @@ const loadingData = {imageSize: {width: '32px',height: '32px'}, //设置图片�
 		     userInteractionEnabled: true, //是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
 		     type: 'round', //设置加载框的类型，有default、round、taichi三种
 		     //imageUrl:require('../assets/loading_custom.png'),//图片链接,如果设置图片链接，type类型失效
-		     background:'#fff', //设置弹框内容的背景色
+		     background:'#f24', //设置弹框内容的背景色
 		     message:"自定义..."
 		     }
 let loading = this.$jj_loading(loadingData)
@@ -293,7 +293,7 @@ this.$jj_toast("提交成功",'',3)
 ```
 2、自定义toast
 ```
-const toastData = {message: message,
+const toastData = {message: "哈哈哈哈哈哈哈哈。。。",
 		   duration: 3,
 		   radius: 2,
 		   background:'#f24',
