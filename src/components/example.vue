@@ -168,7 +168,6 @@
 					this.$jj_loading('加载中...')
 					let that = this
 					setTimeout(function() {
-						this.$jj_loading('加载中...')
 						that.$jj_loading({isClose:true})
 					}, 2000)
 				} else {
