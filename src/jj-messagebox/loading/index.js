@@ -16,6 +16,11 @@ let jj_loading = function(loadingData){
 		return
 	}else{
 		if (loadingData.constructor === Object) {
+			if(loadingData.isClose === true){
+				//移除已有的弹框
+				jj_loading_close()
+				return
+			}
 			data = {
 				...loadingData
 			}
@@ -25,7 +30,7 @@ let jj_loading = function(loadingData){
 			}
 		}
 	}
-	
+	//移除已有的弹框
 	jj_loading_close()
 	
 	let instance = new jjLoading({
@@ -48,5 +53,4 @@ jjLoading.install = function(data) {
 	return jj_loading(data)
 }
 Vue.prototype.$jj_loading = jj_loading
-Vue.prototype.$jj_loading_close = jj_loading_close
 export default jjLoading

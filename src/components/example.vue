@@ -151,7 +151,7 @@
 					setTimeout(function() {
 						that.$jj_toast('网络请求成功')
 						//关闭弹窗
-						that.$jj_alert_close()
+						that.$jj_alert({isClose:true})
 					}, 2000)
 				}
 				this.count += 1
@@ -168,7 +168,8 @@
 					this.$jj_loading('加载中...')
 					let that = this
 					setTimeout(function() {
-						that.$jj_loading_close()
+						this.$jj_loading('加载中...')
+						that.$jj_loading({isClose:true})
 					}, 2000)
 				} else {
 					const loadingData = {
@@ -204,7 +205,7 @@
 			showToast(type) {
 				let message = '哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈。。。'
 				const toastData = {
-					duration: 3,
+					duration: -1, //不自动关闭，需要手动关闭
 					radius: 3
 				}
 				if (type === 'custom') {
@@ -220,6 +221,10 @@
 					toastData["imageSize"] = {width:'60px',height:'60px'}
 					toastData["imageUrl"] = require('../assets/logo.png')
 					this.$jj_toast(toastData)
+					let that = this
+					setTimeout(function(){
+						that.$jj_toast({isClose:true})
+					},5000)
 				} else if(type.length > 0) {
 					
 					//第一个参数为提示信息文本，第二个参数为提示类型，第三个参数为显示的时长

@@ -22,6 +22,7 @@
 				type:'default',//default、round、taichi、
 				duration:1.5,//动画时间
 				radius:5,//圆角
+				isClose:false, //关闭弹框
 				userInteractionEnabled:false,//是否启用用户交互，默认是false,启用后，遮罩层下的图层事件允许点击
 				maskColor: "transparent", //遮罩层的背景颜色
 				background: 'rgba(0, 0, 0, 0.8)', //弹窗的背景

@@ -1,7 +1,7 @@
 
 {
   "name": "jj-messagebox",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "keywords":["messagebox","alert","dialog","loading","toast"],
   "description":"基于Vue的弹框",

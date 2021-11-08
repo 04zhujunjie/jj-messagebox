@@ -38,6 +38,7 @@
 				maskColor: "rgba(0, 0, 0, 0.35)", //遮罩层的背景颜色
 				background: '#fff', //弹窗的背景
 				touchClose: false, //点击背景图层，是否关闭弹框
+				isClose:false, //关闭弹框
 				closeStyle: {}, //右上方关闭按钮的样式
 				showClose: false, //是否显示右上角的关闭按钮
 				width: '80%', //内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
@@ -69,15 +70,21 @@
 				return "jj_alert_btn_id" + index
 			},
 			close() {
-				if (this.isCloseAlert) {
-					return
+				if (this.$el){
+					if (this.isCloseAlert) {
+						return
+					}
+					this.$emit('close')
+					this.isCloseAlert = true
+					let that = this
+					let time = that.duration*1000
+					if (time > 20){
+						time  = time-20
+					}
+					setTimeout(function() {
+						that.$el.remove()
+					}, time)
 				}
-				this.$emit('close')
-				this.isCloseAlert = true
-				let that = this
-				setTimeout(function() {
-					that.$el.remove()
-				}, 250)
 
 			},
 			mainClick(e) {

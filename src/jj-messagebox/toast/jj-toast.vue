@@ -26,6 +26,7 @@
 				type: '', //有success，fail，warn
 				duration: 2.5, //动画时间
 				radius: 5, //圆角
+				isClose:false, //关闭弹框
 				maskColor: "transparent", //遮罩层的背景颜色
 				background: 'rgba(0, 0, 0, 0.8)', //弹窗的背景
 				padding: '12px',

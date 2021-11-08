@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import alert from './jj-alert.vue';
 let jjAlert = Vue.extend(alert); //创建vm实例的构造函数
-
+let jj_alert_instance = null
 let jj_alert_close = function(){
 	let alertElement = document.getElementById('jj-alert-id')
 	if (alertElement) {
@@ -12,6 +12,13 @@ let jj_alert_close = function(){
 
 let jj_alert = function(alertData,message,btnTitle) {
 	const data = getData(alertData,message,btnTitle)
+	if(!(alertData === undefined || alertData === null) && alertData.constructor === Object){
+		if(data.isClose === true && jj_alert_instance!==null){
+			//调用该方法，有动画消失的效果
+			jj_alert_instance.close()
+			return jj_alert_instance
+		}
+	}
 	//移除已有的弹框
 	jj_alert_close()
 	let instance = new jjAlert({
@@ -26,6 +33,7 @@ let jj_alert = function(alertData,message,btnTitle) {
 		instance.$mount()
 		document.body.appendChild(instance.$el)
 	}
+	jj_alert_instance = instance
 	jjAlert.installed = true
 	return instance
 	
@@ -67,6 +75,5 @@ jjAlert.install = function(data) {
     return jj_alert(data)
 }
 Vue.prototype.$jj_alert = jj_alert
-Vue.prototype.$jj_alert_close = jj_alert_close
 export default jjAlert
 
