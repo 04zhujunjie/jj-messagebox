@@ -73,9 +73,10 @@ export default {
 1、使用默认alert
 ```
 /*
-   一共有三个参数，三个参数都是字符串String类型 第一参数是title标题，第二个参数是message内容，第三个参数是按钮的标题
+   一共有三个参数，三个参数都是字符串String类型 
+   第一参数是title标题，第二个参数是message内容
+   第三个参数是按钮的标题
    第三个参数如果没有传值，默认是‘确定’
-   
    如果只传一个参数，那么显示的内容就是参数内容，按钮文本取默认值：‘确定’
 */
 
@@ -118,7 +119,7 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
 ```
 //有两种方式关闭
 //1、使用全局方法关闭
-this.$jj_alert_close()
+this.$jj_alert({isClose:true})
 //2、使用对象调用关闭方法
 let alert = this.$jj_alert(alertData)
 //关闭弹框
@@ -132,6 +133,7 @@ let alert = this.$jj_alert(alertData)
 | type   |有alert和sheet   | String   | 'alert' | 
 | duration   |动画时间，单位s秒  | Number   | 0.25 | 
 | radius   |弹框的圆角  | Number   | 5 | 
+| isClose   |是否关闭弹框  | Boolean   | false |
 | maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
 | background   | 弹窗内容的背景  | String   | '#fff' |
 | touchClose   | 点击遮罩层，是否关闭弹框  | Boolean   | false |
@@ -263,7 +265,7 @@ loading.close()
 //有两种方式关闭
 
 //1、使用全局方法关闭
-this.$jj_loading_close()
+this.$jj_loading({isClose:true})
 //2、使用对象调用关闭方法
 let loading = this.$jj_loading(loadingData)
 //关闭弹框
@@ -276,6 +278,7 @@ let loading = this.$jj_loading(loadingData)
 | type   |有default、round、taichi  | String   | 'default' | 
 | duration   |图片旋转一周动画时间，单位s秒  | Number   | 1.5 | 
 | radius   |弹框的圆角  | Number   | 5 | 
+| isClose   |是否关闭弹框  | Boolean   | false |
 | maskColor   | 遮罩层的背景颜色  | String   | 'transparent'|
 | background   | 弹窗内容的背景  | String   | 'rgba(0, 0, 0, 0.8)' |
 | userInteractionEnabled   | 遮罩层下的事件是否可以交互  | Boolean   | false |
@@ -291,7 +294,9 @@ let loading = this.$jj_loading(loadingData)
 1、使用默认的toast
 ```
 /*
-   一共有三个参数 第一参数是提示信息，第二个参数是提示的类型（success，fail，warn），第三个参数是显示的时长
+   一共有三个参数 第一参数是提示信息，
+   第二个参数是提示的类型（success，fail，warn），
+   第三个参数是显示的时长
 */
 
 //只显示文本
@@ -314,15 +319,19 @@ const toastData = {message: "哈哈哈哈哈哈哈哈。。。",
 		 }
 this.$jj_toast(toastData)
 ```
-
+3、关闭toast
+```
+this.$jj_toast({isClose:true})
+```
 
 #### 参数说明
 
 |  参数  |  说明 |  类型 | 默认值 |
 | ---------- | -----------| :-----------:| :-----------:|
 | type   | 提示的类型（success，fail，warn）  | String   | - |
-| duration   |显示的时长，单位s秒  | Number   | 2.5 | 
+| duration   |显示的时长，单位s秒, 小于0时，不消失，需要手动关闭  | Number   | 2.5 | 
 | radius   |弹框的圆角  | Number   | 5 | 
+| isClose   |是否关闭弹框  | Boolean   | false |
 | maskColor   | 遮罩层的背景颜色  | String   | 'transparent'|
 | background   | 弹窗内容的背景  | String   | 'rgba(0, 0, 0, 0.8)' |
 | maxWidth   |弹框的最大宽度，可以是百分比或具体像素值 |  String | '80%'| 
