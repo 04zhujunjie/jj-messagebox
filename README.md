@@ -242,7 +242,7 @@ this.$jj_loading('加载中...')
 let that = this
 setTimeout(function() {
 //关闭弹框
-that.$jj_loading_close()
+that.$jj_loading({isClose:true})
 }, 2000)
 ```
 2、自定义loading
