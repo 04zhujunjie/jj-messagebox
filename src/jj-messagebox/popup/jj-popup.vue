@@ -4,8 +4,13 @@
 			<div class="messagebox-main fadelogIn" @click="mainClick" :class="[isPopup?'':'fadelogOut']"  
 			style = "margin:0px;width: 100%;border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;" 
 			:style="{'animation-duration':duration+'s','height':height,'background':background,'border-top-left-radius':radius+'px','border-top-right-radius':radius+'px'}">
+				<div class = "background-content">
+					<slot name="backgroundContent"></slot>
+				</div>
 				<div class="messagebox-content" :style="{'padding':padding}">
-					<div v-if="showClose" class="rightTopClose" :style="closeStyle" @click="close"></div>
+					<div v-if="showClose" class="rightTopClose" @click="close">
+						<div class="closeImage" :style="closeStyle"> </div>
+					</div>
 					<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
 					<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle"><span>{{message}}</span></div>
 					<slot></slot>
@@ -122,10 +127,14 @@
 					}
 					this.isPopup = false
 					let that = this
+					let time = this.duration*1000-20
+					if(time < 0){
+						time = 0
+					}
 					setTimeout(function(){
 						that.$emit('close')
 						that.jj_visible = false
-					},250)
+					},time)
 					
 			},
 			mainClick(e) {

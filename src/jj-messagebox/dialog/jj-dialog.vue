@@ -2,8 +2,13 @@
 	<div v-if="jj_visible" class="jj-dialog">
 		<div class="messagebox-shade" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
 			<div class="messagebox-main popIn" @click="mainClick" :style="{'animation-duration':duration+'s','width':width,'background':background,'border-radius':radius+'px'}">
+				<div class = "background-content">
+					<slot name="backgroundContent"></slot>
+				</div>
 				<div class="messagebox-content" :style="{'padding':padding}">
-					<div v-if="showClose" class="rightTopClose" :style="closeStyle" @click="close"></div>
+					<div v-if="showClose" class="rightTopClose"  @click="close">
+						<div class="closeImage" :style="closeStyle"> </div>
+					</div>
 					<div v-if="title.length > 0" class="flexCenter" :style="titleStyle"><span>{{title}}</span></div>
 					<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle"><span>{{message}}</span></div>
 					<slot></slot>

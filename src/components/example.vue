@@ -37,6 +37,7 @@
 
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
+			<img slot="backgroundContent" class="image" :src="backgroundImg"/>
 			<div> 自定Dialog内容</div>
 			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
 
@@ -45,8 +46,8 @@
 				<button class="btn" style="margin-bottom: 10px;" @click="innerVisible=true">打开内层Dialog</button>
 			</div>
 		</jj-dialog>
-		<jj-popup :visible="isShowPopup" :background="background" @close="isShowPopup=false" :showClose="true"
-			title="请选择" :touchClose="true">
+		<jj-popup :visible="isShowPopup" @close="isShowPopup=false" :showClose="true" title="请选择" :touchClose="true">
+			<img slot="backgroundContent" class="image" :src="backgroundImg"/>
 			<div> 今天天气不错</div>
 		</jj-popup>
 	</div>
@@ -63,8 +64,7 @@
 				isShowDialog: false,
 				innerVisible: false,
 				isShowPopup: false,
-				// background:require('../assets/background_image.jpeg')
-				background: 'url(' + require('../assets/background_image.jpeg') + ') 0% 0% / cover fixed'
+				backgroundImg: require('../assets/background_image.jpeg')
 			}
 		},
 		methods: {
@@ -108,7 +108,7 @@
 						title: "Destructive",
 						style: {
 							'color': 'red',
-							'font-size':'15px'
+							'font-size': '15px'
 						},
 						click: () => {
 							console.log("点击Destructive")
@@ -151,7 +151,9 @@
 					setTimeout(function() {
 						that.$jj_toast('网络请求成功')
 						//关闭弹窗
-						that.$jj_alert({isClose:true})
+						that.$jj_alert({
+							isClose: true
+						})
 					}, 2000)
 				}
 				this.count += 1
@@ -168,7 +170,9 @@
 					this.$jj_loading('加载中...')
 					let that = this
 					setTimeout(function() {
-						that.$jj_loading({isClose:true})
+						that.$jj_loading({
+							isClose: true
+						})
 					}, 2000)
 				} else {
 					const loadingData = {
@@ -217,18 +221,23 @@
 						'text-align': 'center'
 					}
 					toastData['padding'] = '20px'
-					toastData["imageSize"] = {width:'60px',height:'60px'}
+					toastData["imageSize"] = {
+						width: '60px',
+						height: '60px'
+					}
 					toastData["imageUrl"] = require('../assets/logo.png')
 					this.$jj_toast(toastData)
 					let that = this
-					setTimeout(function(){
-						that.$jj_toast({isClose:true})
-					},5000)
-				} else if(type.length > 0) {
-					
+					setTimeout(function() {
+						that.$jj_toast({
+							isClose: true
+						})
+					}, 5000)
+				} else if (type.length > 0) {
+
 					//第一个参数为提示信息文本，第二个参数为提示类型，第三个参数为显示的时长
-					this.$jj_toast(type,type,1)
-				}else{
+					this.$jj_toast(type, type, 1)
+				} else {
 					this.$jj_toast(message)
 				}
 
@@ -239,7 +248,6 @@
 
 
 <style scoped>
-
 	.flexColumnCenter {
 		display: flex;
 		flex-direction: column;
@@ -272,5 +280,12 @@
 		color: #FFFFFF;
 		padding: 0px 20px;
 		height: 44px;
+	}
+
+	.image {
+		height: 100%;
+		width: 100%;
+		background-repeat: no-repeat;
+		background-size: contain;
 	}
 </style>

@@ -1,6 +1,6 @@
 <template>
 	<div id = 'jj-loading-id' class="messagebox-shade" :style="{'background-color':maskColor,'pointer-events': userInteractionEnabled?'none':'auto'}">
-		<div class="messagebox-main" :style="{'width':width,'minHeight':width,'background':background,'border-radius':radius+'px'}">
+		<div class="messagebox-main" :style="{'width':width,'minHeight':minHeight,'background':background,'border-radius':radius+'px'}">
 			<div v-if="message.length > 0" class="messagebox-content" :style="{'padding':padding}">
 				<div class="flexContentCenter">
 					<img class="image" :style="{'animation-duration':duration+'s'}" :width="setImageSize.width" :height="setImageSize.height" :src="imgUrl" />
@@ -28,6 +28,7 @@
 				background: 'rgba(0, 0, 0, 0.8)', //弹窗的背景
 				padding: '15px 10px 10px 10px',
 				width: '85px',//弹窗的大小
+				minHeight:'85px',
 				imageSize: {
 					width: '32px',
 					height: '32px'

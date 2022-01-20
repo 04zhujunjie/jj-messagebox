@@ -3,7 +3,9 @@
 		<div class="messagebox-main popIn" :class="[isCloseAlert?'popOut':'']" @click="mainClick"
 			:style="{'animation-duration':duration+'s','width':width,'border-radius':radius+'px'}">
 			<div class="messagebox-content" :style="{'padding':padding}">
-				<div v-if="showClose" class="rightTopClose" :style="closeStyle" @click="close"></div>
+				<div v-if="showClose" class="rightTopClose"  @click="close">
+					<div class="closeImage" :style="closeStyle"> </div>
+				</div>
 				<div v-if="title.length > 0" class="flexCenter" style="font-size: 1.125rem;" :style="titleStyle">
 					<span>{{title}}</span>
 				</div>
@@ -12,14 +14,14 @@
 				</div>
 			</div>
 			<div v-if="type === 'alert'" class="jj-alert-btns flexContentSpaceAround">
-				<div class="jj-alert-btn" v-for="(btn,index) in btns" :id="btnId(index)" :style="btnStyle(btn)"
+				<div class="jj-alert-btn" v-for="(btn,index) in btns" :id="btnId(index)" :style="[btnStyle(btn)]"
 					:key="index" @click="clickFn($event,btn)" @mouseup="mouseup(index,btn)"
 					@mousedown="mousedown(index,btn)">
 					{{btn.title}}
 				</div>
 			</div>
 			<div v-else class="jj-alert-btns flexContentCenter" v-for="(btn,index) in btns" :key="index">
-				<div class="jj-alert-btn" :style="btnStyle(btn)" :id="btnId(index)" @click="clickFn($event,btn)"
+				<div class="jj-alert-btn" :style="[btnStyle(btn)]" :id="btnId(index)" @click="clickFn($event,btn)"
 					@mouseup="mouseup(index,btn)" @mousedown="mousedown(index,btn)">{{btn.title}}
 				</div>
 			</div>
