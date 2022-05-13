@@ -131,6 +131,8 @@ let alert = this.$jj_alert(alertData)
 |  参数  |  说明 |  类型 | 默认值 |
 | ---------- | -----------| :-----------:| :-----------:|
 | type   |有alert和sheet   | String   | 'alert' | 
+| position   |弹窗出现的位置，有center和bottom   | String   | 'center' | 
+| btnDirection   |按钮的排列方向,row和column  sheet指定为column | String   | 'row' | 
 | duration   |动画时间，单位s秒  | Number   | 0.25 | 
 | radius   |弹框的圆角  | Number   | 5 | 
 | isClose   |是否关闭弹框  | Boolean   | false |
