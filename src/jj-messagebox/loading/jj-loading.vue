@@ -15,6 +15,7 @@
 </template>
 
 <script>
+	import {getData} from './index.js'
 	export default {
 		name: 'jj-loading',
 		data() {
@@ -63,6 +64,10 @@
 					this.$el.remove()
 				}
 			},
+			update(loadingData){
+				let data = getData(loadingData)
+				Object.assign(this.$data,data)
+			}
 		}
 	}
 </script>

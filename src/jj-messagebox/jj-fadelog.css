@@ -59,6 +59,8 @@
 .fadelogOut {
     -webkit-animation: fadelogOut .25s;
     animation: fadelogOut .25s;
+	/* 保留动画结束后的样子 */
+	animation-fill-mode: forwards;
 }
 
 @keyframes fadelogOut {

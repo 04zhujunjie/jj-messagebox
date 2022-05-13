@@ -1,46 +1,92 @@
 <template>
-	<div class="messagebox-shade" id = 'jj-alert-id' :style="{'background-color':maskColor}" @click="touchClose?close():''">
-		<div class="messagebox-main popIn" :class="[isCloseAlert?'popOut':'']" @click="mainClick"
-			:style="{'animation-duration':duration+'s','width':width,'border-radius':radius+'px'}">
-			<div class="messagebox-content" :style="{'padding':padding}">
-				<div v-if="showClose" class="rightTopClose"  @click="close">
-					<div class="closeImage" :style="closeStyle"> </div>
-				</div>
-				<div v-if="title.length > 0" class="flexCenter" style="font-size: 1.125rem;" :style="titleStyle">
-					<span>{{title}}</span>
-				</div>
-				<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle">
-					<span>{{message}}</span>
+	<div id='jj-alert-id'>
+		<template v-if="position==='bottom' || type === 'sheet'">
+			<div class="messagebox-shade" :class="[isCloseAlert?'fadelogOutOpcity':'']" style="justify-content:flex-end;align-items: flex-end;"  :style="{'background-color':maskColor}"
+				@click="touchClose?close():''">
+				<div style="display: flex;justify-content:center;align-items: center;">
+					<div class="messagebox-main fadelogIn" @animationend="animationend" :class="[isCloseAlert?'fadelogOut':'']" @click="mainClick"
+						:style="{'animation-duration':duration+'s','width':alertWidth,'border-radius':radius+'px'}">
+						<div class="messagebox-content" :style="{'padding':padding}">
+							<div v-if="showClose" class="rightTopClose" @click="close">
+								<div class="closeImage" :style="closeStyle"> </div>
+							</div>
+							<div v-if="title.length > 0" class="flexCenter" style="font-size: 1.125rem;" :style="titleStyle">
+								<span>{{title}}</span>
+							</div>
+							<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle">
+								<span>{{message}}</span>
+							</div>
+						</div>
+						<div v-if="buttonDirection === 'row'" class="jj-alert-btns flexContentSpaceAround">
+							<div class="jj-alert-btn" v-for="(btn,index) in btns" :id="btnId(index)" :style="[btnStyle(btn)]"
+								:key="index" @click="clickFn($event,btn)" @mouseup="mouseup(index,btn)"
+								@mousedown="mousedown(index,btn)">
+								{{btn.title}}
+							</div>
+						</div>
+						<div v-else>
+							<div  class="jj-alert-btns flexContentCenter" v-for="(btn,index) in btns" :key="index">
+								<div class="jj-alert-btn" :style="[btnStyle(btn)]" :id="btnId(index)" @click="clickFn($event,btn)"
+									@mouseup="mouseup(index,btn)" @mousedown="mousedown(index,btn)">{{btn.title}}
+								</div>
+							</div>
+						</div>
+							
+					</div>
 				</div>
 			</div>
-			<div v-if="type === 'alert'" class="jj-alert-btns flexContentSpaceAround">
-				<div class="jj-alert-btn" v-for="(btn,index) in btns" :id="btnId(index)" :style="[btnStyle(btn)]"
-					:key="index" @click="clickFn($event,btn)" @mouseup="mouseup(index,btn)"
-					@mousedown="mousedown(index,btn)">
-					{{btn.title}}
+		</template>
+		<template v-else>
+			<div class="messagebox-shade" :class="[isCloseAlert?'fadelogOutOpcity':'']" :style="{'background-color':maskColor}"
+				@click="touchClose?close():''">
+				<div class="messagebox-main popIn" @animationend="animationend" :class="[isCloseAlert?'popOut':'']" @click="mainClick"
+					:style="{'animation-duration':duration+'s','width':alertWidth,'border-radius':radius+'px'}">
+					<div class="messagebox-content" :style="{'padding':padding}">
+						<div v-if="showClose" class="rightTopClose" @click="close">
+							<div class="closeImage" :style="closeStyle"> </div>
+						</div>
+						<div v-if="title.length > 0" class="flexCenter" style="font-size: 1.125rem;" :style="titleStyle">
+							<span>{{title}}</span>
+						</div>
+						<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle">
+							<span>{{message}}</span>
+						</div>
+					</div>
+					<div v-if="buttonDirection === 'row'" class="jj-alert-btns flexContentSpaceAround">
+						<div class="jj-alert-btn" v-for="(btn,index) in btns" :id="btnId(index)" :style="[btnStyle(btn)]"
+							:key="index" @click="clickFn($event,btn)" @mouseup="mouseup(index,btn)"
+							@mousedown="mousedown(index,btn)">
+							{{btn.title}}
+						</div>
+					</div>
+					<div v-else class="jj-alert-btns flexContentCenter" v-for="(btn,index) in btns" :key="index">
+						<div class="jj-alert-btn" :style="[btnStyle(btn)]" :id="btnId(index)" @click="clickFn($event,btn)"
+							@mouseup="mouseup(index,btn)" @mousedown="mousedown(index,btn)">{{btn.title}}
+						</div>
+					</div>
 				</div>
 			</div>
-			<div v-else class="jj-alert-btns flexContentCenter" v-for="(btn,index) in btns" :key="index">
-				<div class="jj-alert-btn" :style="[btnStyle(btn)]" :id="btnId(index)" @click="clickFn($event,btn)"
-					@mouseup="mouseup(index,btn)" @mousedown="mousedown(index,btn)">{{btn.title}}
-				</div>
-			</div>
-		</div>
+		</template>
+
 	</div>
+
 </template>
 
 <script>
+	import {getData} from './index.js'
 	export default {
 		name: 'jj-alert',
 		data() {
 			return {
 				type: 'alert', //有alert和sheet
+				position: 'center', //有center和bottom
+				btnDirection: 'row', //按钮的排列方向,row和column
 				duration: 0.25, //动画时间
 				radius: 5, //圆角
 				maskColor: "rgba(0, 0, 0, 0.35)", //遮罩层的背景颜色
 				background: '#fff', //弹窗的背景
 				touchClose: false, //点击背景图层，是否关闭弹框
-				isClose:false, //关闭弹框
+				isClose: false, //关闭弹框
 				closeStyle: {}, //右上方关闭按钮的样式
 				showClose: false, //是否显示右上角的关闭按钮
 				width: '80%', //内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
@@ -59,7 +105,7 @@
 						'background': '#fff'
 					},
 					touchClose: true, //点击按钮，是否自动关闭弹框
-					isDisable:false,
+					isDisable: false,
 					click: () => {
 						// console.log("按钮被点击")
 					},
@@ -67,27 +113,53 @@
 				isCloseAlert: false,
 			}
 		},
+		computed: {
+			buttonDirection() {
+				if (this.type === 'sheet') {
+					return 'column'
+				}
+				if (this.btnDirection.length > 0 && (this.btnDirection === 'row' || this.btnDirection === 'column')) {
+					return this.btnDirection
+				}
+				return 'row'
+			},
+			alertWidth() {
+				if (this.type === 'sheet') {
+					return '100%'
+				}
+				if (this.width.length > 0) {
+					return this.width
+				}
+				if(this.position !== 'bottom'){
+					return '100%'
+				}else{
+					return '85%'
+				}
+			}
+		},
 		methods: {
 			btnId(index) {
 				return "jj_alert_btn_id" + index
 			},
 			close() {
-				if (this.$el){
+				if (this.$el) {
 					if (this.isCloseAlert) {
 						return
 					}
-					this.$emit('close')
 					this.isCloseAlert = true
-					let that = this
-					let time = that.duration*1000
-					if (time > 20){
-						time  = time-20
-					}
-					setTimeout(function() {
-						that.$el.remove()
-					}, time)
 				}
 
+			},
+			animationend(){
+				if(this.isCloseAlert){
+					//弹窗消失结束后
+					this.$emit('close')
+					this.$el.remove()
+				}
+			},
+			update(alertData,message,btnTitle){
+				let data = getData(alertData,message,btnTitle)
+				Object.assign(this.$data,data)
 			},
 			mainClick(e) {
 				//阻止事件冒泡
@@ -101,7 +173,7 @@
 					//样式的合并
 					Object.assign(style, btn.style)
 				}
-				if (this.type === 'sheet') {
+				if (this.buttonDirection === 'column') {
 					style['flex-direction'] = 'column'
 					style['width'] = '100%'
 					style['border-right'] = '0px'
@@ -111,8 +183,8 @@
 			clickFn(e, btn) {
 				//阻止事件冒泡
 				e.stopPropagation()
-				
-				if (btn.isDisable === true){
+
+				if (btn.isDisable === true) {
 					//按钮禁用
 					return
 				}
@@ -128,7 +200,7 @@
 				}
 			},
 			setupBtnActive(isDown = false, index, btn) {
-				if (btn.isDisable === true){
+				if (btn.isDisable === true) {
 					//按钮禁用
 					return
 				}
@@ -186,7 +258,7 @@
 <style scoped>
 	@import "../jj-messagebox.css";
 	@import "../jj-pop.css";
-
+	@import "../jj-fadelog.css";
 	.flexCenter {
 		display: flex;
 		justify-content: center;

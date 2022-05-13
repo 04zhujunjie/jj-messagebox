@@ -10,9 +10,16 @@
 			<button class="btn marginLeftRight" @click="showCustomAlert('alert')">
 				自定义Alert
 			</button>
+			<button class="btn marginLeftRight" @click="showCustomAlert('alert',true,'column')">
+				按钮竖排Alert
+			</button>
+			<button class="btn" @click="showCustomAlert('alert',true,'column','bottom')">
+				底部弹出Alert
+			</button>
 			<button class="btn" @click="showCustomAlert('sheet')">
 				自定义Sheet
 			</button>
+
 		</div>
 		<div class="flexRow marginTopBottom">
 			<button class="btn" @click="showDialog">Dialog</button>
@@ -37,7 +44,7 @@
 
 		<jj-dialog :visible="isShowDialog" :titleStyle="{'color':'red'}" title="提示" message="外层Dialog"
 			@close="isShowDialog=false">
-			<img slot="backgroundContent" class="image" :src="backgroundImg"/>
+			<img slot="backgroundContent" class="image" :src="backgroundImg" />
 			<div> 自定Dialog内容</div>
 			<jj-dialog width="60%" title="内层Dialog" :visible="innerVisible" @close='innerVisible=false'>
 
@@ -47,7 +54,7 @@
 			</div>
 		</jj-dialog>
 		<jj-popup :visible="isShowPopup" @close="isShowPopup=false" :showClose="true" title="请选择" :touchClose="true">
-			<img slot="backgroundContent" class="image" :src="backgroundImg"/>
+			<img slot="backgroundContent" class="image" :src="backgroundImg" />
 			<div> 今天天气不错</div>
 		</jj-popup>
 	</div>
@@ -69,14 +76,41 @@
 		},
 		methods: {
 			showNormalAlert() {
-				this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有的。', '知道了')
+				let alert = this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有的。', '知道了')
+				let loading = this.$jj_loading()
+				console.log(loading)
+				let that = this
+				setTimeout(function() {
+					loading.close()
+					that.$jj_toast('已经更新 Alert 数据')
+					//更新数据
+					alert.update({
+						titleStyle: {
+							'color': 'red',
+							'font-size': '18px'
+						},
+						btns: [{
+							title: "确定",
+							activeBackground: '#2A8AFF',
+							activeColor: "#fff",
+							style: {
+								'color': '#4CD964',
+							},
+							click: () => {
+								console.log("点击-----确定")
+							}
+						}]
+					})
+				}, 2000)
 			},
-			showCustomAlert(type, isShowBtn = true) {
+			showCustomAlert(type, isShowBtn = true, btnDirection = 'row', position = 'center') {
 
 				let that = this
 				const alert = this.$jj_alert({
 					type: type, //弹窗的类型有alert和sheet
-					width: '70%', //设置弹窗的宽度
+					position: position, //有center和bottom
+					btnDirection: btnDirection, //按钮的排列方向,row和column
+					width: '80%', //设置弹窗的宽度
 					padding: '20px 30px', //设置内容的上下左右偏移
 					maskColor: "rgba(0, 0, 0, 0.6)", //遮罩层的背景颜色
 					touchClose: true, //点击背景图层，是否关闭弹框
@@ -167,13 +201,16 @@
 			showLoading(type) {
 
 				if (type === 'default') {
-					this.$jj_loading('加载中...')
+					let loading = this.$jj_loading('加载中...')
 					let that = this
+					setTimeout(function() {
+						loading.update('更新...')
+					}, 2000)
 					setTimeout(function() {
 						that.$jj_loading({
 							isClose: true
 						})
-					}, 2000)
+					}, 4000)
 				} else {
 					const loadingData = {
 						imageSize: {

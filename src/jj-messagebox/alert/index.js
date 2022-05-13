@@ -39,7 +39,7 @@ let jj_alert = function(alertData,message,btnTitle) {
 	
 }
 
-let getData = function(alertData,message,btnTitle){
+export let getData = function(alertData,message,btnTitle){
 	let data = {}
 	const isAlertDataNull = (alertData === undefined || alertData === null)
 	const isMessageNull = (message === undefined || message === null)

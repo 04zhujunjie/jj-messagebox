@@ -1,7 +1,7 @@
 <template>
 	<div v-if="jj_visible" class="jj-popup">
-		<div class="messagebox-shade" style="justify-content:end;align-items: flex-end;" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
-			<div class="messagebox-main fadelogIn" @click="mainClick" :class="[isPopup?'':'fadelogOut']"  
+		<div class="messagebox-shade" :class="[!isPopup?'fadelogOutOpcity':'']"  style="justify-content:end;align-items: flex-end;" :style="{'background-color':maskColor}"  @click="touchClose?close():''">
+			<div class="messagebox-main fadelogIn" @animationend="animationend" @click="mainClick" :class="[isPopup?'':'fadelogOut']"  
 			style = "margin:0px;width: 100%;border-bottom-left-radius: 0px;border-bottom-right-radius: 0px;" 
 			:style="{'animation-duration':duration+'s','height':height,'background':background,'border-top-left-radius':radius+'px','border-top-right-radius':radius+'px'}">
 				<div class = "background-content">
@@ -126,16 +126,14 @@
 						return
 					}
 					this.isPopup = false
-					let that = this
-					let time = this.duration*1000-20
-					if(time < 0){
-						time = 0
-					}
-					setTimeout(function(){
-						that.$emit('close')
-						that.jj_visible = false
-					},time)
-					
+			},
+			animationend(){
+				if(!this.isPopup){
+					//弹窗消失结束后
+					this.$emit('close')
+					this.isPopup = true
+					this.jj_visible = false
+				}
 			},
 			mainClick(e) {
 				//阻止事件冒泡
