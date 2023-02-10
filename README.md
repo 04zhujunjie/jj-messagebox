@@ -103,7 +103,9 @@ this.$jj_alert('提示', '时间就像海绵里的水,\n只要愿挤总还是有
 	  "justify-content": 'left',
 	  "display": "flex",
 	  "color": '#8a8a8a',
-	  'text-align': 'left'
+	  'text-align': 'left',
+	  'maxHeight':'100px',//内容的最大高度
+          'overflow': 'scroll', //如果文本高度大于maxHeight就以滚动形式显示
 	   }, //内容的样式
            btns:[{
             title: "Cancel", //按钮文本
@@ -139,6 +141,8 @@ let alert = this.$jj_alert(alertData)
 | maskColor   | 遮罩层的背景颜色  | String   | 'rgba(0, 0, 0, 0.35) '|
 | background   | 弹窗内容的背景  | String   | '#fff' |
 | touchClose   | 点击遮罩层，是否关闭弹框  | Boolean   | false |
+| isQuickClose   | 是否开启快速关闭，设置true时，关闭时没有动画效果  | Boolean   | false |
+| isUseHTMLString   | 是否将 message 属性作为 HTML 片段处理  | Boolean   | false |
 | showClose   | 是否显示右上角的关闭按钮  | Boolean   | false |
 | closeStyle   | 右上方关闭按钮的样式  | Object   | {} |
 | width   |弹框的宽度，可以是百分比或具体像素值 |  String | '80%'| 
