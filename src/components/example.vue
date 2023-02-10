@@ -104,16 +104,26 @@
 				}, 2000)
 			},
 			showCustomAlert(type, isShowBtn = true, btnDirection = 'row', position = 'center') {
-
+        let isUseHTMLString = false //是否将 message 属性作为 HTML 片段处理
+        let message = "事实上确实是当我们失去的时候，才知道自己曾经拥有；但有没有注意到当有些东西来临的时候，我们已错过。"
+        if (type==='sheet'){
+          isUseHTMLString = true
+          message = "<strong>这是 <i>HTML</i> 片段</strong>"
+        }else {
+          if(btnDirection!=='row'){
+            message += message
+          }
+        }
 				let that = this
 				const alert = this.$jj_alert({
 					type: type, //弹窗的类型有alert和sheet
 					position: position, //有center和bottom
 					btnDirection: btnDirection, //按钮的排列方向,row和column
 					width: '80%', //设置弹窗的宽度
-					padding: '20px 30px', //设置内容的上下左右偏移
+					padding: '10px 20px', //设置内容的上下左右偏移
 					maskColor: "rgba(0, 0, 0, 0.6)", //遮罩层的背景颜色
 					touchClose: true, //点击背景图层，是否关闭弹框
+          isQuickClose:false,//是否开启快速关闭，设置true时，关闭时没有动画效果
 					showClose: true, //是否显示右上角的关闭按钮
 					closeStyle: {
 						'height': '0.85rem',
@@ -124,12 +134,15 @@
 						'color': '#fb2408',
 						'font-size': '20px'
 					}, //标题的样式
-					message: '事实上确实是当我们失去的时候，才知道自己曾经拥有；但有没有注意到当有些东西来临的时候，我们已错过。', //内容
+          isUseHTMLString:isUseHTMLString,//是否将 message 属性作为 HTML 片段处理
+					message: message, //内容
 					messageStyle: {
 						"justify-content": 'left',
 						"display": "flex",
 						"color": '#8a8a8a',
-						'text-align': 'left'
+						'text-align': 'left',
+            'maxHeight':'100px',//内容的最大高度
+            'overflow': 'scroll', //如果文本高度大于maxHeight就以滚动形式显示
 					}, //内容的样式
 					btns: isShowBtn === false ? [] : [{
 						title: "Cancel",

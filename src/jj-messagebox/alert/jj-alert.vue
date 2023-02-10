@@ -3,7 +3,7 @@
 		<template v-if="position==='bottom' || type === 'sheet'">
 			<div class="messagebox-shade" :class="[isCloseAlert?'fadelogOutOpcity':'']" style="justify-content:flex-end;align-items: flex-end;"  :style="{'background-color':maskColor}"
 				@click="touchClose?close():''">
-				<div style="display: flex;justify-content:center;align-items: center;">
+				<div class="sheet-box">
 					<div class="messagebox-main fadelogIn" @animationend="animationend" :class="[isCloseAlert?'fadelogOut':'']" @click="mainClick"
 						:style="{'animation-duration':duration+'s','width':alertWidth,'border-radius':radius+'px'}">
 						<div class="messagebox-content" :style="{'padding':padding}">
@@ -13,9 +13,10 @@
 							<div v-if="title.length > 0" class="flexCenter" style="font-size: 1.125rem;" :style="titleStyle">
 								<span>{{title}}</span>
 							</div>
-							<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle">
-								<span>{{message}}</span>
-							</div>
+              <div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle">
+                <span v-if="!isUseHTMLString">{{message}}</span>
+                <div v-else v-html="message"></div>
+              </div>
 						</div>
 						<div v-if="buttonDirection === 'row'" class="jj-alert-btns flexContentSpaceAround">
 							<div class="jj-alert-btn" v-for="(btn,index) in btns" :id="btnId(index)" :style="[btnStyle(btn)]"
@@ -31,7 +32,7 @@
 								</div>
 							</div>
 						</div>
-							
+
 					</div>
 				</div>
 			</div>
@@ -48,9 +49,10 @@
 						<div v-if="title.length > 0" class="flexCenter" style="font-size: 1.125rem;" :style="titleStyle">
 							<span>{{title}}</span>
 						</div>
-						<div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle">
-							<span>{{message}}</span>
-						</div>
+            <div v-if="message.length > 0" class="flexCenter" style="margin-top: 10px;" :style="messageStyle">
+              <span v-if="!isUseHTMLString">{{message}}</span>
+              <div v-else v-html="message"></div>
+            </div>
 					</div>
 					<div v-if="buttonDirection === 'row'" class="jj-alert-btns flexContentSpaceAround">
 						<div class="jj-alert-btn" v-for="(btn,index) in btns" :id="btnId(index)" :style="[btnStyle(btn)]"
@@ -89,6 +91,8 @@
 				isClose: false, //关闭弹框
 				closeStyle: {}, //右上方关闭按钮的样式
 				showClose: false, //是否显示右上角的关闭按钮
+        isQuickClose:false,//是否开启快速关闭，设置true时，关闭时没有动画效果
+        isUseHTMLString:false,//是否将 message 属性作为 HTML 片段处理
 				width: '80%', //内容显示框的大小，可以按照窗口的百分比指定大小，也可以是具体px,如300px
 				padding: '20px',
 				title: "",
@@ -143,6 +147,10 @@
 			},
 			close() {
 				if (this.$el) {
+          if (this.isQuickClose){
+            this.quickClose()
+            return
+          }
 					if (this.isCloseAlert) {
 						return
 					}
@@ -150,11 +158,14 @@
 				}
 
 			},
+      quickClose(){
+        this.$emit('close')
+        this.$el.remove()
+      },
 			animationend(){
 				if(this.isCloseAlert){
 					//弹窗消失结束后
-					this.$emit('close')
-					this.$el.remove()
+					this.quickClose()
 				}
 			},
 			update(alertData,message,btnTitle){
@@ -277,7 +288,12 @@
 		justify-content: space-around;
 		align-items: center;
 	}
-
+  .sheet-box{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: 100%
+  }
 	.jj-alert-btns {
 
 		box-sizing: border-box;
